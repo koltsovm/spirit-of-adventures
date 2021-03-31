@@ -7,6 +7,8 @@ const passwordRepeat = document.querySelector('#inputTitle6');
 
 const alertBox = document.querySelector('#alertBox');
 alertBox.setAttribute('style', 'display: none');
+const alertBox2 = document.querySelector('#alertBox2');
+alertBox2.setAttribute('style', 'display: none');
 
 document.addEventListener('click', async (event) => {
   if (event.target.dataset.id === 'registration') {
@@ -51,6 +53,37 @@ document.addEventListener('click', async (event) => {
       } else {
         document.querySelector('body').append(result);
         window.location = '/';
+      }
+    }
+  }
+
+  if (event.target.dataset.id === 'login') {
+    event.preventDefault();
+    const loginEmail = document.querySelector('#loginEmail').value;
+    const loginPassword = document.querySelector('#loginPassword').value;
+
+    if (!loginEmail || !loginPassword) {
+      alertBox2.removeAttribute('style');
+      document.querySelector('#alertMessage2').innerText = 'Заполните все поля!';
+    } else if (!loginEmail.includes('@')) {
+      alertBox2.removeAttribute('style');
+      document.querySelector('#alertMessage2').innerText = 'Неверный формат E-mail!';
+    } else {
+      const fetchQuery = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: loginEmail,
+          password: loginPassword,
+        }),
+      });
+      const result = await fetchQuery.json();
+
+      if (result.status === 'ok') {
+        window.location = '/';
+      } else {
+        alertBox2.removeAttribute('style');
+        document.querySelector('#alertMessage2').innerText = 'Неверный логин и/или пароль';
       }
     }
   }

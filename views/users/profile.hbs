@@ -7,10 +7,15 @@
 </nav>
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-    <div class="container">
+    <div class="container profile-container">
       <img src="" alt="" class="img-thumbnail">
+      {{#each user}}
+      <p class="h2">{{this.name}} {{this.lastName}}</p>
+      <p class="lead"> {{this.username}}</p>
+      <p>E-mail: {{this.email}}</p>
+      <p>Город: {{this.city}}</p>
+      {{/each}}
     </div>
-    
   </div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in elit vel eros ultricies suscipit tristique at libero. Aenean molestie faucibus enim at vehicula. Donec vehicula venenatis diam, quis aliquet mauris volutpat eget. In et nisi quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur et condimentum augue, in egestas enim. Vivamus ipsum ligula, venenatis vel lobortis ac, bibendum vitae est. Aenean faucibus nibh arcu, ut porta mi aliquam eu. Maecenas a blandit ex. Sed ex leo, faucibus vel ultrices vel, vulputate et mi. In rhoncus nibh in ligula sollicitudin consequat. Sed lectus mauris, aliquet nec risus in, dignissim pharetra urna. Aliquam erat volutpat.
 

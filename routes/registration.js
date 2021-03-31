@@ -23,6 +23,7 @@ router.post('/form', async (req, res) => {
       });
 
       req.session.username = user.username;
+      req.session.userId = user.id;
 
       return res.render('index', { layout: false, user });
     } catch (error) {

@@ -5,17 +5,16 @@ const User = require('../models/user.model');
 
 router.get('/:username', async (req, res) => {
   if (req.session.username) {
+    let user;
     try {
-      const currentUser = await User.find({ username: req.params.username });
-      // console.log('SIC!');
+      user = await User.find({ _id: req.session.userId });
     } catch (error) {
       return res.render('error');
     }
-
-    const user = req.session.username;
-
     return res.render('users/profile', { user });
   }
+
+  return res.render('error');
 });
 
 module.exports = router;
