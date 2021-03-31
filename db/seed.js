@@ -13,6 +13,8 @@ const userSeed = async () => {
       lastName: `Lastname ${i}`,
       username: `username ${i}`,
       email: `testEmail${i}@gmail.com`,
+      city: `${i}`,
+      avatar: `${i}`,
       password: `${i}`,
     });
   }
@@ -54,8 +56,8 @@ const adventureSeed = async () => {
 };
 
 const seed = async () => {
-  // await User.deleteMany();
-  // await Adventure.deleteMany();
+  await User.deleteMany();
+  await Adventure.deleteMany();
 
   await userSeed();
   await adventureSeed();

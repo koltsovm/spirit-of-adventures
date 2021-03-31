@@ -5,10 +5,13 @@ const createError = require('http-errors');
 const path = require('path');
 const MongoStore = require('connect-mongo');
 const dbConnect = require('./db/db');
+
 const mongoUrl = process.env.DATABASE_STRING;
 
 // Import routers
 const indexRouter = require('./routes/index');
+const registrationRouter = require('./routes/registration');
+const profileRouter = require('./routes/profile');
 
 const app = express();
 
@@ -17,7 +20,7 @@ app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Connect session
@@ -28,7 +31,7 @@ app.use(
     saveUninitialized: false,
     cookie: { secure: false }, // maxAge: 60000
     store: MongoStore.create({ mongoUrl }),
-  })
+  }),
 );
 
 // Send user to all HBS
@@ -39,16 +42,18 @@ app.use((req, res, next) => {
 
 // Routers
 app.use('/', indexRouter);
+app.use('/registration', registrationRouter);
+app.use('/profile', profileRouter);
 
 // Catch errors if all of routers above has no responses
 app.use((req, res, next) => {
   const error = createError(
     404,
-    'Запрашиваемой страницы не существует на сервере.'
+    'Запрашиваемой страницы не существует на сервере.',
   );
   next(error);
 });
 
-app.listen(process.env.PORT || 3000, () =>
-  console.log('Server has been started!')
-);
+app.listen(process.env.PORT || 3000, () => {
+  console.log('Server has been started!');
+});

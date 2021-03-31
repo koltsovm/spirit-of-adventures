@@ -1,0 +1,9 @@
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+#nav-tab {
+  display: flex;
+  justify-content: center;
+  margin-top: 3vh;
+}
