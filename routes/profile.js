@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user.model');
 const Category = require('../models/category.model');
+const Adventure = require('../models/adventure.model');
 
 router.get('/create', async (req, res) => {
   const categories = await Category.find();
@@ -10,7 +11,19 @@ router.get('/create', async (req, res) => {
 });
 
 router.get('/created', async (req, res) => {
-  res.render('cards/cards', { layout: false });
+  if (req.session.username) {
+    let adventures;
+    try {
+      adventures = await Adventure.find({
+        creator: req.session.userId,
+      });
+    } catch (error) {
+      return res.render('error');
+    }
+    return res.render('cards/cards', { layout: false, adventures });
+  }
+
+  return res.render('error');
 });
 
 router.post('/create', (req, res) => {

@@ -174,14 +174,34 @@ document.addEventListener('click', async (event) => {
   }
 
   // Открыть созданные приключения
-  if (
-    event.target.dataset.id === 'nav-created') {
-    const fetchQuery = await fetch('/profile/create', {
+  if (event.target.dataset.id === 'nav-created') {
+    const fetchQuery = await fetch('/profile/created', {
       headers: { 'Content-Type': 'application/json' },
     });
 
     const result = await fetchQuery.text();
-    document.querySelector('#nav-create').innerHTML = result;
+    document.querySelector('#nav-contact').innerHTML = result;
+  }
+
+  // Удалить свое приключение
+  if (event.target.dataset.id === 'delete-btn') {
+    alert('Вы уверены, что хотите удалить это приключение?');
+    const fetchQuery = await fetch(`/delete/${event.target.dataset.entryid}`, {
+      method: 'DELETE',
+    });
+
+    const responseJson = await fetchQuery.json();
+
+    if (!responseJson.isDeleteSuccessful) {
+      alert(responseJson.errorMessage);
+    } else {
+      const request = await fetch('/profile/created', {
+        headers: { 'Content-Type': 'application/json' },
+      });
+
+      const result = await request.text();
+      document.querySelector('#nav-contact').innerHTML = result;
+    }
   }
 
   // Добавить путевую точку

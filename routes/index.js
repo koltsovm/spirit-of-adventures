@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user.model');
 const Category = require('../models/category.model');
+const Adventure = require('../models/adventure.model');
 
 router.get('/', (req, res) => {
   const user = req.session.username;
@@ -37,6 +38,28 @@ router.post('/login', async (req, res) => {
   }
 
   return res.send({ status: 'ok' });
+});
+
+// Удаление записи. Почему-то не работает в роутере /profile
+router.delete('/delete/:id', async (req, res) => {
+  try {
+    const thisAdventure = await Adventure.findOne({ _id: req.params.id });
+    if (req.session.userId.toString() === thisAdventure.creator.toString()) {
+      await Adventure.findByIdAndDelete(req.params.id);
+    } else {
+      return res.json({
+        isDeleteSuccessful: false,
+        errorMessage: 'У вас нет прав для этого действия :(',
+      });
+    }
+  } catch (error) {
+    return res.json({
+      isDeleteSuccessful: false,
+      errorMessage: 'Не удалось удалить запись из базы данных.',
+    });
+  }
+
+  return res.json({ isDeleteSuccessful: true });
 });
 
 module.exports = router;
