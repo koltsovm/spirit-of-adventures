@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('../models/user.model');
 const Adventure = require('../models/adventure.model');
+const Category = require('../models/category.model');
 const dbConnect = require('./db');
 
 dbConnect();
@@ -55,12 +56,44 @@ const adventureSeed = async () => {
   });
 };
 
+const categorySeed = async () => {
+  await Category.create({
+    categoryName: 'Природа',
+  });
+
+  await Category.create({
+    categoryName: 'Город',
+  });
+
+  await Category.create({
+    categoryName: 'Архитектура',
+  });
+
+  await Category.create({
+    categoryName: 'Активный отдых',
+  });
+
+  await Category.create({
+    categoryName: 'Пешком',
+  });
+
+  await Category.create({
+    categoryName: 'На машине',
+  });
+
+  await Category.create({
+    categoryName: 'На велосипеде',
+  });
+};
+
 const seed = async () => {
   await User.deleteMany();
   await Adventure.deleteMany();
+  await Category.deleteMany();
 
   await userSeed();
   await adventureSeed();
+  await categorySeed();
 
   mongoose.disconnect();
 };

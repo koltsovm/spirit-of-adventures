@@ -1,5 +1,20 @@
+body {
+  margin-bottom: -15vh;
+}
+
 .dropdown:hover .dropdown-menu {
   display: block;
+}
+
+.navbar {
+  opacity: .7;
+  transition-property: transform;
+  transition-duration: .5s;
+  background-position: center;
+}
+
+.navbar.out {
+	transform: translateY(-100%);
 }
 
 #nav-tab {
@@ -8,6 +23,52 @@
   margin-top: 3vh;
 }
 
+.profile-nav {
+  margin-top: 10vh;
+}
+
+.profile-main {
+  height: 100vh;
+}
+
 .profile-container {
   max-width: 50vw;
+}
+
+.carousel-item {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.index-image {
+  height: 100%;
+  object-fit: cover;
+}
+
+.category-container {
+  max-width: 60vw;
+  height: 100vh;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  opacity: 0;
+  /* transition-property: opacity;
+  transition-duration: .2s; */
+  transition: opacity 1.0s;
+}
+
+.category-container.show {
+  opacity: 1;
+}
+
+.link-block {
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  /* text-decoration: none;
+  color: black; */
+}
+
+.footer {
+  min-height: 15vh;
 }

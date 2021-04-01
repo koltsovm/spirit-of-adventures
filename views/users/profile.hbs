@@ -1,38 +1,36 @@
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Профиль</button>
-    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Мои приключения</button>
-    <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Созданные приключения</button>
-  </div>
-</nav>
-<div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-    <div class="container profile-container">
-      <img src="" alt="" class="img-thumbnail">
-      {{#each user}}
-      <p class="h2">{{this.name}} {{this.lastName}}</p>
-      <p class="lead"> {{this.username}}</p>
-      <p>E-mail: {{this.email}}</p>
-      <p>Город: {{this.city}}</p>
-      {{/each}}
+<main class="profile-main">
+  <nav class="profile-nav">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Карточка путешественника</button>
+      <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Мои приключения</button>
+      <button class="nav-link" id="nav-plans-tab" data-bs-toggle="tab" data-bs-target="#nav-plans" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Мои планы</button>
+      <button class="nav-link" id="nav-create-tab" data-bs-toggle="tab" data-bs-target="#nav-create" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Создать приключение</button>
+      <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Созданные приключения</button>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+      <div class="container profile-container">
+        <img src="" alt="" class="img-thumbnail">
+        {{#each user}}
+        <p class="h2">{{this.name}} {{this.lastName}}</p>
+        <p class="lead"> {{this.username}}</p>
+        <p>E-mail: {{this.email}}</p>
+        <p>Город: {{this.city}}</p>
+        {{/each}}
+      </div>
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      Мои приключения
+    </div>
+    <div class="tab-pane fade" id="nav-plans" role="tabpanel" aria-labelledby="nav-plans-tab">
+      Мои планы
+    </div>
+    <div class="tab-pane fade" id="nav-create" role="tabpanel" aria-labelledby="nav-create-tab">
+      Создать приключение
+    </div>
+    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+      Созданные приключения
     </div>
   </div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in elit vel eros ultricies suscipit tristique at libero. Aenean molestie faucibus enim at vehicula. Donec vehicula venenatis diam, quis aliquet mauris volutpat eget. In et nisi quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur et condimentum augue, in egestas enim. Vivamus ipsum ligula, venenatis vel lobortis ac, bibendum vitae est. Aenean faucibus nibh arcu, ut porta mi aliquam eu. Maecenas a blandit ex. Sed ex leo, faucibus vel ultrices vel, vulputate et mi. In rhoncus nibh in ligula sollicitudin consequat. Sed lectus mauris, aliquet nec risus in, dignissim pharetra urna. Aliquam erat volutpat.
-
-Donec fringilla tellus vitae blandit commodo. Proin pretium libero vitae convallis tempor. Pellentesque viverra quam sem, commodo dictum nulla pulvinar vel. Ut in egestas sem, et convallis risus. Aenean pharetra purus non blandit sagittis. Etiam sagittis malesuada justo, ac vulputate felis. In hac habitasse platea dictumst. Nam pellentesque magna sollicitudin, pretium ex quis, hendrerit turpis. Maecenas molestie turpis enim, et blandit ante dapibus ut. Phasellus quis tellus et lacus bibendum ornare.
-
-Nulla facilisi. Fusce laoreet euismod mauris ut placerat. In hac habitasse platea dictumst. Aenean sit amet accumsan ante, sit amet mattis elit. Aenean et condimentum dolor. Duis massa diam, aliquam vel ullamcorper vel, vulputate nec tortor. Nullam maximus dolor nibh, id congue quam posuere ut. Cras elit ante, accumsan vitae augue ut, mollis lobortis magna. Curabitur sed velit eu libero fringilla varius a quis metus. Nulla non tempus mi, sit amet facilisis lacus. Cras et pharetra nibh. Fusce venenatis ante ut elit porta, vitae blandit enim sollicitudin. Cras vel scelerisque libero.
-
-Donec eget nunc quis quam vestibulum iaculis at quis libero. Integer dignissim tortor in est congue dictum. Suspendisse aliquam vitae urna id consequat. Aenean at purus in orci lobortis aliquam. Nunc at posuere nibh. Donec eleifend ullamcorper dolor, a fringilla odio tempor id. Sed pharetra ante in urna condimentum bibendum. Suspendisse erat nisi, euismod vel pharetra vel, pharetra in ipsum. Suspendisse ipsum sapien, suscipit non interdum quis, venenatis et lectus. Suspendisse et massa commodo, condimentum quam nec, fringilla velit. Vivamus vitae felis in felis cursus cursus. Suspendisse convallis massa eget nunc vulputate euismod. Fusce suscipit turpis neque, quis fringilla diam cursus sit amet. Curabitur sem lectus, tempus vitae volutpat egestas, tristique ac lacus. Donec ultrices metus ut mauris bibendum, ac fermentum diam rutrum. Integer nibh dolor, blandit quis ex eu, auctor tristique diam.
-
-Vestibulum sit amet dictum magna, ac rutrum massa. Etiam et enim ac ex volutpat laoreet. Aliquam tristique porttitor enim a pharetra. Maecenas enim magna, vestibulum euismod nibh ut, vestibulum faucibus metus. In hac habitasse platea dictumst. Maecenas eget diam eget arcu euismod blandit vitae a enim. Vestibulum iaculis tortor et luctus vehicula. Quisque cursus nisl vitae ipsum maximus, ut scelerisque tellus pellentesque. Vestibulum in diam ornare, venenatis odio vitae, lacinia justo. Nam imperdiet placerat iaculis.</div>
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in elit vel eros ultricies suscipit tristique at libero. Aenean molestie faucibus enim at vehicula. Donec vehicula venenatis diam, quis aliquet mauris volutpat eget. In et nisi quam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur et condimentum augue, in egestas enim. Vivamus ipsum ligula, venenatis vel lobortis ac, bibendum vitae est. Aenean faucibus nibh arcu, ut porta mi aliquam eu. Maecenas a blandit ex. Sed ex leo, faucibus vel ultrices vel, vulputate et mi. In rhoncus nibh in ligula sollicitudin consequat. Sed lectus mauris, aliquet nec risus in, dignissim pharetra urna. Aliquam erat volutpat.
-
-Donec fringilla tellus vitae blandit commodo. Proin pretium libero vitae convallis tempor. Pellentesque viverra quam sem, commodo dictum nulla pulvinar vel. Ut in egestas sem, et convallis risus. Aenean pharetra purus non blandit sagittis. Etiam sagittis malesuada justo, ac vulputate felis. In hac habitasse platea dictumst. Nam pellentesque magna sollicitudin, pretium ex quis, hendrerit turpis. Maecenas molestie turpis enim, et blandit ante dapibus ut. Phasellus quis tellus et lacus bibendum ornare.
-
-Nulla facilisi. Fusce laoreet euismod mauris ut placerat. In hac habitasse platea dictumst. Aenean sit amet accumsan ante, sit amet mattis elit. Aenean et condimentum dolor. Duis massa diam, aliquam vel ullamcorper vel, vulputate nec tortor. Nullam maximus dolor nibh, id congue quam posuere ut. Cras elit ante, accumsan vitae augue ut, mollis lobortis magna. Curabitur sed velit eu libero fringilla varius a quis metus. Nulla non tempus mi, sit amet facilisis lacus. Cras et pharetra nibh. Fusce venenatis ante ut elit porta, vitae blandit enim sollicitudin. Cras vel scelerisque libero.
-
-Donec eget nunc quis quam vestibulum iaculis at quis libero. Integer dignissim tortor in est congue dictum. Suspendisse aliquam vitae urna id consequat. Aenean at purus in orci lobortis aliquam. Nunc at posuere nibh. Donec eleifend ullamcorper dolor, a fringilla odio tempor id. Sed pharetra ante in urna condimentum bibendum. Suspendisse erat nisi, euismod vel pharetra vel, pharetra in ipsum. Suspendisse ipsum sapien, suscipit non interdum quis, venenatis et lectus. Suspendisse et massa commodo, condimentum quam nec, fringilla velit. Vivamus vitae felis in felis cursus cursus. Suspendisse convallis massa eget nunc vulputate euismod. Fusce suscipit turpis neque, quis fringilla diam cursus sit amet. Curabitur sem lectus, tempus vitae volutpat egestas, tristique ac lacus. Donec ultrices metus ut mauris bibendum, ac fermentum diam rutrum. Integer nibh dolor, blandit quis ex eu, auctor tristique diam.
-
-Vestibulum sit amet dictum magna, ac rutrum massa. Etiam et enim ac ex volutpat laoreet. Aliquam tristique porttitor enim a pharetra. Maecenas enim magna, vestibulum euismod nibh ut, vestibulum faucibus metus. In hac habitasse platea dictumst. Maecenas eget diam eget arcu euismod blandit vitae a enim. Vestibulum iaculis tortor et luctus vehicula. Quisque cursus nisl vitae ipsum maximus, ut scelerisque tellus pellentesque. Vestibulum in diam ornare, venenatis odio vitae, lacinia justo. Nam imperdiet placerat iaculis.</div>
-</div>
+</main>

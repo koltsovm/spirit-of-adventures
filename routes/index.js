@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const User = require('../models/user.model');
+const Category = require('../models/category.model');
 
 router.get('/', (req, res) => {
   const user = req.session.username;
@@ -11,6 +12,11 @@ router.get('/', (req, res) => {
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
+});
+
+router.get('/main', async (req, res) => {
+  const categories = await Category.find();
+  res.render('cards/main', { layout: false, categories });
 });
 
 router.post('/login', async (req, res) => {
