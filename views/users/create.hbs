@@ -1,0 +1,69 @@
+<div class="trip-creation-form">
+  <form action="" method="POST">
+    <div class="form-floating col-sm-10 form-area">
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" placeholder='Например, "Городец за один день"' required>
+        <label for="floatingInput">Название маршрута <sup style="color: red;">*</sup></label>
+      </div>
+    </div>
+    <div class="form-floating col-sm-10 form-area">
+      <div class="form-floating mb-3">
+        <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
+          <option selected>Выбрать...</option>
+          {{#each categories}}
+          <option value="{{this.categoryName}}">{{this.categoryName}}</option>
+          {{/each}}
+        </select>
+        <label for="floatingSelect">Выберите категорию <sup style="color: red;">*</sup></label>
+      </div>
+    </div>
+    <div class="form-floating col-sm-10 form-area">
+      <div class="form-floating mb-3">
+        <textarea class="form-control" placeholder="Напишите что-нибудь" id="floatingTextarea2" style="height: 100px"></textarea>
+        <label for="floatingTextarea2">Пара слов о вашем маршруте <sup style="color: red;">*</sup></label>
+      </div>
+    </div>
+    <div class="row mb-3" id="waypointsList">
+      <div class="form-floating col-sm-9" id="waypointItem">
+        <div class="form-floating col-sm-9 mb-3 waypoint">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Название точки  <sup style="color: red;">*</sup></label>
+            <input type="text" data-id="waypointTitle" class="form-control waypointTitle" required>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" data-id="waypointDescription" class="form-control waypointDescription" placeholder='Например, "Городец за один день"' required>
+            <label>Описание <sup style="color: red;">*</sup></label>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <p class="col-sm-5 col-form-label">Карта</p>
+              <button type="button" data-id="addMap" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Открыть карту</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="form-floating col-sm-9 ">
+        <button type="button" data-id="addWaypoint" class="btn btn-outline-primary">Добавить точку</button>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <div class="form-floating col-sm-10">
+        <button type="submit" data-id="createAdventure" class="btn btn-primary">Создать приключение</button>
+      </div>
+    </div>
+  </form> 
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+  <div class="offcanvas-header">
+    <h5 id="offcanvasRightLabel">Отметьте точки</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    {{!-- Модуль карты --}}
+    <div class="map form-map"></div>
+  </div>
+</div>
