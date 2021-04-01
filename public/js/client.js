@@ -238,7 +238,7 @@ document.addEventListener('click', async (event) => {
     renderMap();
   }
 
-  // Отправка формы
+  // Отправка формы, создание приключения
   if (event.target.dataset.id === 'createAdventure') {
     event.preventDefault();
     // Заголовки путевых точек

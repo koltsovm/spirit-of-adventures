@@ -5,7 +5,7 @@ const Adventure = new mongoose.Schema({
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   category: String,
   description: String,
-  routePlan: String,
+  routePlan: [],
   coordinates: String,
   photos: String,
 });

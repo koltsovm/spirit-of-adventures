@@ -103,7 +103,7 @@ body {
 
 .card-body {
   min-height: 10vh;
-  height: 1px;
+  /* height: 1px; */
 }
 
 .card-footer {

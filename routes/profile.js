@@ -26,8 +26,21 @@ router.get('/created', async (req, res) => {
   return res.render('error');
 });
 
-router.post('/create', (req, res) => {
-  res.render('users/routeCreated', { layout: false });
+router.post('/create', async (req, res) => {
+  try {
+    await Adventure.create({
+      title: req.body.title,
+      creator: req.session.userId,
+      category: req.body.category,
+      description: req.body.description,
+      routePlan: req.body.routePlan,
+      coordinates: req.body.coordinates,
+      photos: req.body.photos,
+    });
+  } catch (error) {
+    return res.render('error');
+  }
+  return res.render('users/routeCreated', { layout: false });
 });
 
 router.get('/:username', async (req, res) => {
