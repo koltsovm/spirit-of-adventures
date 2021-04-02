@@ -113,7 +113,7 @@ if (document.querySelector('.adventure-card-map')) {
       document.querySelector('.map'),
       {
         center: coordinatesFormatted[0],
-        zoom: 12,
+        zoom: 10,
         controls: ['typeSelector', 'fullscreenControl', 'zoomControl'],
       },
       { buttonMaxWidth: 300, balloonMaxWidth: 200 },

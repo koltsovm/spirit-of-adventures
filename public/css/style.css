@@ -20,9 +20,13 @@ body {
 	transform: translateY(-100%);
 }
 
+.carousel-inner {
+  z-index: -3;
+}
+
 .carousel-wrapper {
   display: flex;
-  z-index: 1000;
+  z-index: -2;
   background-color: rgba(0,0,0, 0);
   /* background-color:	rgba(0,0,0, 0.45); */
   position: absolute;
@@ -36,12 +40,13 @@ body {
 }
 
 .carousel-wrapper.show {
+  /* z-index: 1; */
   opacity: 0.45;
   background-color:	black;
 }
 
 .title-content {
-  z-index: 2000;
+  z-index: -1;
   display: flex;
   flex-direction: column;
   justify-content: center;
