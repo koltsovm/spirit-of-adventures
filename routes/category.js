@@ -5,9 +5,10 @@ const User = require('../models/user.model');
 const Category = require('../models/category.model');
 const Adventure = require('../models/adventure.model');
 
-router.get('card/:id', async (req, res) => {
+router.get('/card/:id', async (req, res) => {
+  console.log('TADA!');
   const adventure = await Adventure.findById(req.params.id);
-  res.render('adventureCard', { layout: false, adventure });
+  res.render('cards/adventureCard', { adventure });
 });
 
 router.get('/:title', async (req, res) => {
