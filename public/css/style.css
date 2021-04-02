@@ -196,7 +196,7 @@ body {
 
 .cards-container {
   max-width: 60vw;
-  height: 100vh;
+  min-height: 100vh;
   margin-top: 10vh;
   margin-bottom: 10vh;
   vertical-align: auto;
@@ -238,11 +238,11 @@ body {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  margin-top: 10vh;
+  margin-top: 10vh; 
 }
 
 .adventure-card-value {
-  padding: 10vh auto 0 0;
+  padding: 10vh 5px 0 0;
   width: 50vw;
   padding-left: 2vw;
   min-height: 100vh;
@@ -255,9 +255,9 @@ body {
 }
 
 .adventure-card-map {
-  padding: 7vh 0 0 auto;
+  padding: 7vh 0 0 5px;
   max-width: 50vw;
-  min-height: 100vh;
+  height: auto;
 }
 
 /* .delete-btn {

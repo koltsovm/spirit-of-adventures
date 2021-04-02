@@ -127,7 +127,7 @@ if (document.querySelector('.adventure-card-map')) {
             balloonContent: `<b>${routePlanItemsTitles[i].innerText}</b><br>${routePlanItemsDescriptions[i].innerText}`,
           },
           {
-            draggable: true,
+            draggable: false,
           },
         ),
       );
