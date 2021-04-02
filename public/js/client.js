@@ -38,9 +38,9 @@ function renderMap() {
       {
         center: [55.76, 37.64],
         zoom: 12,
-        controls: ['typeSelector', 'fullscreenControl', 'zoomControl'],
+        controls: ['typeSelector', 'fullscreenControl', 'zoomControl', 'searchControl'],
       },
-      { buttonMaxWidth: 300, balloonMaxWidth: 200 }
+      { buttonMaxWidth: 300, balloonMaxWidth: 200, searchControlProvider: 'yandex#search' }
     );
 
     // eslint-disable-next-line prefer-destructuring

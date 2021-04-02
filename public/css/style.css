@@ -20,6 +20,20 @@ body {
 	transform: translateY(-100%);
 }
 
+.navbar-brand {
+  font-family: 'Pacifico', cursive;
+  font-size: 2.5em;
+  font-weight: 100;
+  margin-right: 3vw;
+  margin-left: 1vw;
+  margin-top: -10px;
+  color: rgba(73, 70, 70, 0.1);
+}
+
+.navbar-collapse {
+  max-width: 85vw;
+}
+
 .carousel-inner {
   z-index: -3;
 }
@@ -90,6 +104,23 @@ body {
   min-height: 100vh;
 }
 
+.img-thumbnail {
+  min-height: 200px;
+  min-width: 200px;
+  margin-top: 1vh;
+  margin-left: 1vw;
+}
+
+.dev-label {
+  position: absolute;
+  top: -9;
+  left: -9;
+  padding: 2px;
+  color: white;
+  background-color: red;
+  border-radius: 5px;
+}
+
 .created {
   min-height: 100vh;
 }
@@ -126,6 +157,7 @@ body {
 .form-map {
   width: 100%;
   height: 100%;
+  padding-top: 2vh;
 }
 
 .carousel-item {
@@ -249,6 +281,28 @@ body {
   min-height: 25vh;
 }
 
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  min-height: 25vh;
+}
+
+.footer-logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  text-align: right;
+}
+
 @media (min-width: 992px) and (max-width: 1440px) {
   .main-title {
     font-size: 4em;
@@ -260,6 +314,10 @@ body {
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+  .navbar-brand {
+    font-size: 2em;
+  }
+
   .main-title {
     font-size: 2em;
   }
@@ -270,6 +328,10 @@ body {
 }
 
 @media (max-width: 767px) {
+  .navbar-brand {
+    font-size: 1em;
+  }
+
   .main-title {
     font-size: 1.5em;
   }
