@@ -44,10 +44,13 @@ router.post('/create', async (req, res) => {
 });
 
 router.get('/category/card/:id', async (req, res) => {
-  const adventure = await Adventure.findById(req.params.id);
-  console.log(adventure);
-  const routePlanItems = 
-  res.render('cards/adventureCard', { adventure });
+  if (req.session.username) {
+    const user = req.session.username;
+    const adventure = await Adventure.findById(req.params.id);
+    console.log(adventure);
+    const routePlanItems = adventure.routePlan;
+    res.render('cards/adventureCard', { adventure, routePlanItems, user });
+  }
 });
 
 router.get('/:username', async (req, res) => {

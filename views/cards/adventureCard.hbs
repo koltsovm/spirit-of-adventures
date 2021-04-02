@@ -1,7 +1,25 @@
-<div class="adventure-card-value">
-  <h1 class="display-3">{{adventure.title}}</h1>
-  <p>{{adventure.category}}</p>
-  <p class="lead">{{adventure.description}}</p>
+<div class="adventure-container">
+  <div class="adventure-card-value">
+    <input type="text" id="coordinatesStorage" style="display: none;" value="{{adventure.coordinates}}">
+    <h1 class="display-3">{{adventure.title}}</h1>
+    <p class="lead">{{adventure.category}}</p>
+    <br>
+    <p>{{adventure.description}}</p>
+    <br>
+    {{#each routePlanItems}}
+      {{!-- <p>{{this.[0]}}</p> --}}
+      <div class="vl">  </div>
+      <p class="fs-2 routePlanItemTitle">{{this.[0]}}</p>
+      <p class="routePlanItemDescription">{{this.[1]}}</p>
+    {{/each}}
+    <br>
+    <div class="row mb-3">
+      <div class="form-floating col-sm-9 ">
+        <button type="button" data-id="editAdventure" class="btn btn-outline-primary">Редактировать маршрут </button>
+        <sup style="color: red;">СКОРО!</sup>
+      </div>
+    </div>
+  </div>
+  {{!-- Карта в отображении путешествия --}}
+  <div class="map form-map adventure-card-map"></div>
 </div>
-{{!-- Карта в отображении путешествия --}}
-<div class="map form-map adventure-card-map"></div>

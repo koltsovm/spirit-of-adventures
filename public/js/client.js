@@ -10,7 +10,6 @@ window.onload = () => {
     setTimeout(() => {
       document.querySelector('.carousel-wrapper').classList.add('show');
       document.querySelector('.title-content').classList.add('show');
-      // document.querySelector('.lead').classList.add('show');
     }, 700);
   }
 };
@@ -76,8 +75,8 @@ function renderMap() {
             },
             {
               draggable: true,
-            }
-          )
+            },
+          ),
         );
         // editor.startEditing();
         // myMap.balloon.open(coords, {
@@ -93,6 +92,46 @@ function renderMap() {
         myMap.balloon.close();
       }
     });
+  });
+}
+
+// Отображаем карту на странице приключения
+if (document.querySelector('.adventure-card-map')) {
+  // renderMap();
+  const coordinatesText = document.querySelector('#coordinatesStorage').value;
+  const coordinates = coordinatesText.split(',');
+  const coordinatesFormatted = [];
+  for (let i = 0; i < coordinates.length; i += 2) {
+    coordinatesFormatted.push([coordinates[i], coordinates[i + 1]]);
+  }
+
+  const routePlanItemsTitles = document.querySelectorAll('.routePlanItemTitle');
+  const routePlanItemsDescriptions = document.querySelectorAll('.routePlanItemDescription');
+
+  ymaps.ready(() => {
+    const myMap = new ymaps.Map(
+      document.querySelector('.map'),
+      {
+        center: coordinatesFormatted[0],
+        zoom: 12,
+        controls: ['typeSelector', 'fullscreenControl', 'zoomControl'],
+      },
+      { buttonMaxWidth: 300, balloonMaxWidth: 200 },
+    );
+
+    for (let i = 0; i < coordinatesFormatted.length; i += 1) {
+      myMap.geoObjects.add(
+        new ymaps.Placemark(
+          coordinatesFormatted[i],
+          {
+            balloonContent: `<b>${routePlanItemsTitles[i].innerText}</b><br>${routePlanItemsDescriptions[i].innerText}`,
+          },
+          {
+            draggable: true,
+          },
+        ),
+      );
+    }
   });
 }
 
@@ -253,10 +292,6 @@ document.addEventListener('click', async (event) => {
             <button type="button" data-id="deleteWaypoint" class="btn btn-outline-primary">Удалить точку</button>
           </div>
           <div class="row mb-3">
-          <div class="col">
-            <p class="col-sm-5 col-form-label">Карта</p>
-            <button type="button" data-id="addMap" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Открыть карту</button>
-          </div>
         </div>
         </div>
       </div>`
@@ -299,7 +334,6 @@ document.addEventListener('click', async (event) => {
     document
       .querySelectorAll('.mapCoordinates')
       .forEach((el) => coordinates.push(el.value.split(',')));
-    console.log(coordinates);
 
     const titleInput = document.querySelector('#floatingInput');
     const categoryInput = document.querySelector('#floatingSelect');

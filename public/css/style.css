@@ -197,18 +197,30 @@ body {
   justify-content: space-between;
 }
 
+.adventure-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-top: 10vh;
+}
+
 .adventure-card-value {
-  margin: 10vh auto 0 0;
-  max-width: 50vw;
+  padding: 10vh auto 0 0;
+  width: 50vw;
   padding-left: 2vw;
   min-height: 100vh;
   padding-top: 5vh;
 }
 
+.vl {
+  border-left: 1px solid gray;
+  height: 5vh;
+}
+
 .adventure-card-map {
-  margin: 7vh 7vh 0 auto;
+  padding: 7vh 0 0 auto;
   max-width: 50vw;
-  padding-right: 2vw;
+  min-height: 100vh;
 }
 
 /* .delete-btn {
