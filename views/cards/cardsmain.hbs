@@ -5,12 +5,18 @@
         <div class="card h-100">
           <a href="category/{{this.id}}" class="link-block"></a>
           {{!-- <img src="..." class="card-img-top" alt="..."> --}}
+          {{#if this.photos}}
+          {{else}}
+          <div  class="card-img-top" >
+            <img src="/img/icons/{{this.category}}.png" alt="{{this.category}}">
+          </div>
+          {{/if}}
           <div class="card-body">
             <h5 class="card-title">{{this.title}}</h5>
             <p class="card-text">{{this.description}}</p>
           </div>
           <div class="card-footer">
-            <small class="text-muted">{{this.creator}}</small>
+            <small class="text-muted">{{this.category}}</small>
           </div>
         </div>
       </div>

@@ -59,40 +59,47 @@ const adventureSeed = async () => {
 const categorySeed = async () => {
   await Category.create({
     categoryName: 'Природа',
+    categoryImage: 'Природа.png',
   });
 
   await Category.create({
     categoryName: 'Город',
+    categoryImage: 'Город.png',
   });
 
   await Category.create({
     categoryName: 'Архитектура',
+    categoryImage: 'Архитектура.png',
   });
 
   await Category.create({
     categoryName: 'Активный отдых',
+    categoryImage: 'Активный отдых.png',
   });
 
   await Category.create({
     categoryName: 'Пешком',
+    categoryImage: 'Пешком.png',
   });
 
   await Category.create({
     categoryName: 'На машине',
+    categoryImage: 'На машине.png',
   });
 
   await Category.create({
     categoryName: 'На велосипеде',
+    categoryImage: 'На велосипеде.png',
   });
 };
 
 const seed = async () => {
-  await User.deleteMany();
-  await Adventure.deleteMany();
+  // await User.deleteMany();
+  // await Adventure.deleteMany();
   await Category.deleteMany();
 
-  await userSeed();
-  await adventureSeed();
+  // await userSeed();
+  // await adventureSeed();
   await categorySeed();
 
   mongoose.disconnect();

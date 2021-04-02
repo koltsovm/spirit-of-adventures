@@ -135,7 +135,7 @@ body {
 
 .category-container {
   max-width: 60vw;
-  height: 100vh;
+  min-height: 100vh;
   margin-top: 10vh;
   margin-bottom: 10vh;
   opacity: 0;
@@ -144,6 +144,11 @@ body {
 
 .category-container.show {
   opacity: 1;
+}
+
+.categories-flex {
+  justify-content: center;
+  align-items: center;
 }
 
 .category {
@@ -160,18 +165,50 @@ body {
   vertical-align: auto;
 }
 
+.card.h-100 {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 5px 5px 12px;
+}
+
+.card-img-top {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  min-height: fit-content;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  /* background-color: #0d6efd; */
+}
+
 .col-private {
   padding-bottom: 5vh;
 }
 
 .card-body {
   min-height: 10vh;
+  text-align: center;
   /* height: 1px; */
 }
 
 .card-footer {
   display: flex;
   justify-content: space-between;
+}
+
+.adventure-card-value {
+  margin: 10vh auto 0 0;
+  max-width: 50vw;
+  padding-left: 2vw;
+  min-height: 100vh;
+  padding-top: 5vh;
+}
+
+.adventure-card-map {
+  margin: 7vh 7vh 0 auto;
+  max-width: 50vw;
+  padding-right: 2vw;
 }
 
 /* .delete-btn {
@@ -193,4 +230,34 @@ body {
 
 .footer {
   min-height: 25vh;
+}
+
+@media (min-width: 992px) and (max-width: 1440px) {
+  .main-title {
+    font-size: 4em;
+  }
+  
+  .lead {
+    font-size: 2em;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .main-title {
+    font-size: 2em;
+  }
+  
+  .lead {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 767px) {
+  .main-title {
+    font-size: 1.5em;
+  }
+  
+  .lead {
+    font-size: 0.9em;
+  }
 }

@@ -43,6 +43,13 @@ router.post('/create', async (req, res) => {
   return res.render('users/routeCreated', { layout: false });
 });
 
+router.get('/category/card/:id', async (req, res) => {
+  const adventure = await Adventure.findById(req.params.id);
+  console.log(adventure);
+  const routePlanItems = 
+  res.render('cards/adventureCard', { adventure });
+});
+
 router.get('/:username', async (req, res) => {
   if (req.session.username) {
     let user;
