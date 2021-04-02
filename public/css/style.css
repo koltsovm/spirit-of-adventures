@@ -189,8 +189,9 @@ body {
 }
 
 .category {
+  margin-bottom: 10vh;
   padding-top: 20vh;
-  height: 100vh;
+  min-height: 100vh;
   max-width: 60vw;
 }
 
