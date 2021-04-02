@@ -6,9 +6,10 @@ const Category = require('../models/category.model');
 const Adventure = require('../models/adventure.model');
 
 router.get('/card/:id', async (req, res) => {
-  console.log('TADA!');
+  const user = req.session.username;
   const adventure = await Adventure.findById(req.params.id);
-  res.render('cards/adventureCard', { adventure });
+  const routePlanItems = adventure.routePlan;
+  res.render('cards/adventureCard', { adventure, user, routePlanItems });
 });
 
 router.get('/:title', async (req, res) => {

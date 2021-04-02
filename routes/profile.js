@@ -47,7 +47,6 @@ router.get('/category/card/:id', async (req, res) => {
   if (req.session.username) {
     const user = req.session.username;
     const adventure = await Adventure.findById(req.params.id);
-    console.log(adventure);
     const routePlanItems = adventure.routePlan;
     res.render('cards/adventureCard', { adventure, routePlanItems, user });
   }

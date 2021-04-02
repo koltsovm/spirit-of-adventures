@@ -187,6 +187,7 @@ document.addEventListener('click', async (event) => {
       const result = await fetchQuery.text();
       if (result.includes('Пользователь с таким E-mail уже зарегистрирован!')) {
         document.querySelector('#alertBox').innerHTML = result;
+        alertBox.removeAttribute('style');
       } else {
         document.querySelector('body').append(result);
         window.location = '/';
@@ -328,12 +329,10 @@ document.addEventListener('click', async (event) => {
       ]);
     }
 
-    // console.log(waypointsAll);
-
-    const coordinates = [];
+    const mapCoordinates = [];
     document
       .querySelectorAll('.mapCoordinates')
-      .forEach((el) => coordinates.push(el.value.split(',')));
+      .forEach((el) => mapCoordinates.push(el.value.split(',')));
 
     const titleInput = document.querySelector('#floatingInput');
     const categoryInput = document.querySelector('#floatingSelect');
@@ -357,7 +356,7 @@ document.addEventListener('click', async (event) => {
           category: categoryInput.value,
           description: descriptionInput.value,
           routePlan: waypointsAll,
-          coordinates: coordinates,
+          coordinates: mapCoordinates,
           // photos
         }),
       });
