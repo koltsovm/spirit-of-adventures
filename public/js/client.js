@@ -5,6 +5,16 @@ const emailField = document.querySelector('#inputTitle4');
 const passwordField = document.querySelector('#inputTitle5');
 const passwordRepeat = document.querySelector('#inputTitle6');
 
+window.onload = () => {
+  if (document.querySelector('.carousel-wrapper')) {
+    setTimeout(() => {
+      document.querySelector('.carousel-wrapper').classList.add('show');
+      document.querySelector('.title-content').classList.add('show');
+      // document.querySelector('.lead').classList.add('show');
+    }, 700);
+  }
+};
+
 // Сворачивание панели навигации
 const header = $('.navbar');
 let scrollPrev = 0;
@@ -22,6 +32,7 @@ $(window).scroll(() => {
 
 // Функция рендериинга карты
 function renderMap() {
+  document.querySelector('.form-map').innerHTML = '';
   ymaps.ready(() => {
     const myMap = new ymaps.Map(
       document.querySelector('.map'),
@@ -30,7 +41,7 @@ function renderMap() {
         zoom: 12,
         controls: ['typeSelector', 'fullscreenControl', 'zoomControl'],
       },
-      { buttonMaxWidth: 300, balloonMaxWidth: 200 },
+      { buttonMaxWidth: 300, balloonMaxWidth: 200 }
     );
 
     // eslint-disable-next-line prefer-destructuring
@@ -44,19 +55,31 @@ function renderMap() {
       .then((result) => {
         result.geoObjects.get(0).properties.set({});
         myMap.geoObjects.add(result.geoObjects);
-        myMap.setCenter(result.geoObjects.position, 12);
+        // myMap.setCenter(result.geoObjects.position, 12);
       });
 
     // Отслеживаем щелчки по карте
     myMap.events.add('click', (event) => {
       if (!myMap.balloon.isOpen()) {
         const coords = event.get('coords');
-        myMap.geoObjects.add(new ymaps.Placemark(coords, {
-          balloonContent: 'цвет <strong>воды пляжа бонди</strong>',
-        }, {
-          draggable: true,
-        }));
-        editor.startEditing();
+        document
+          .getElementById('mapDataHidden')
+          .insertAdjacentHTML(
+            'beforeend',
+            `<input type="text" name="map" style="display: none" class="mapCoordinates" value="${coords}">`
+          );
+        myMap.geoObjects.add(
+          new ymaps.Placemark(
+            coords,
+            {
+              balloonContent: 'цвет <strong>воды пляжа бонди</strong>',
+            },
+            {
+              draggable: true,
+            }
+          )
+        );
+        // editor.startEditing();
         // myMap.balloon.open(coords, {
         //   contentHeader: 'Событие!',
         //   contentBody:
@@ -86,24 +109,28 @@ document.addEventListener('click', async (event) => {
     event.preventDefault();
 
     if (
-      !nameField.value
-      || !lastName.value
-      || !nicknameField.value
-      || !emailField.value
-      || !passwordField.value
-      || !passwordRepeat.value
+      !nameField.value ||
+      !lastName.value ||
+      !nicknameField.value ||
+      !emailField.value ||
+      !passwordField.value ||
+      !passwordRepeat.value
     ) {
       alertBox.removeAttribute('style');
-      document.querySelector('#alertMessage').innerText = 'Заполните обязательные поля!';
+      document.querySelector('#alertMessage').innerText =
+        'Заполните обязательные поля!';
     } else if (!document.querySelector('#inputTitle4').value.includes('@')) {
       alertBox.removeAttribute('style');
-      document.querySelector('#alertMessage').innerText = 'Неверный формат E-mail!';
+      document.querySelector('#alertMessage').innerText =
+        'Неверный формат E-mail!';
     } else if (!document.querySelector('#inputTitle5').value.match(/\d/g)) {
       alertBox.removeAttribute('style');
-      document.querySelector('#alertMessage').innerText = 'Пароль должен содержать цифры!';
+      document.querySelector('#alertMessage').innerText =
+        'Пароль должен содержать цифры!';
     } else if (passwordField.value !== passwordRepeat.value) {
       alertBox.removeAttribute('style');
-      document.querySelector('#alertMessage').innerText = 'Введенные пароли не совпадают!';
+      document.querySelector('#alertMessage').innerText =
+        'Введенные пароли не совпадают!';
     } else {
       const fetchQuery = await fetch('/registration/form', {
         method: 'POST',
@@ -136,10 +163,12 @@ document.addEventListener('click', async (event) => {
 
     if (!loginEmail || !loginPassword) {
       alertBox2.removeAttribute('style');
-      document.querySelector('#alertMessage2').innerText = 'Заполните все поля!';
+      document.querySelector('#alertMessage2').innerText =
+        'Заполните все поля!';
     } else if (!loginEmail.includes('@')) {
       alertBox2.removeAttribute('style');
-      document.querySelector('#alertMessage2').innerText = 'Неверный формат E-mail!';
+      document.querySelector('#alertMessage2').innerText =
+        'Неверный формат E-mail!';
     } else {
       const fetchQuery = await fetch('/login', {
         method: 'POST',
@@ -155,15 +184,16 @@ document.addEventListener('click', async (event) => {
         window.location = '/';
       } else {
         alertBox2.removeAttribute('style');
-        document.querySelector('#alertMessage2').innerText = 'Неверный логин и/или пароль';
+        document.querySelector('#alertMessage2').innerText =
+          'Неверный логин и/или пароль';
       }
     }
   }
 
   // Открыть форму создания приключения
   if (
-    event.target.dataset.id === 'nav-create'
-    && !document.querySelector('.trip-creation-form')
+    event.target.dataset.id === 'nav-create' &&
+    !document.querySelector('.trip-creation-form')
   ) {
     const fetchQuery = await fetch('/profile/create', {
       headers: { 'Content-Type': 'application/json' },
@@ -229,7 +259,7 @@ document.addEventListener('click', async (event) => {
           </div>
         </div>
         </div>
-      </div>`,
+      </div>`
     );
   }
 
@@ -241,37 +271,66 @@ document.addEventListener('click', async (event) => {
   // Отправка формы, создание приключения
   if (event.target.dataset.id === 'createAdventure') {
     event.preventDefault();
+
     // Заголовки путевых точек
     const waypointTitles = document.querySelectorAll('.waypointTitle');
     const waypointTitlesValues = [];
     waypointTitles.forEach((el) => waypointTitlesValues.push(el.value));
     // Описания путевых точек
-    const waypointDescriptions = document.querySelectorAll('.waypointDescription');
+    const waypointDescriptions = document.querySelectorAll(
+      '.waypointDescription'
+    );
     const waypointDescriptionsValues = [];
-    waypointDescriptions.forEach((el) => waypointDescriptionsValues.push(el.value));
+    waypointDescriptions.forEach((el) =>
+      waypointDescriptionsValues.push(el.value)
+    );
     // Собираем путевые точки с заголовками в один массив
     const waypointsAll = [];
     for (let i = 0; i < waypointTitlesValues.length; i += 1) {
-      waypointsAll.push([waypointTitlesValues[i], waypointDescriptionsValues[i]]);
+      waypointsAll.push([
+        waypointTitlesValues[i],
+        waypointDescriptionsValues[i],
+      ]);
     }
 
-    console.log(waypointsAll);
+    // console.log(waypointsAll);
 
-    const fetchQuery = await fetch('/profile/create', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title: document.querySelector('#floatingInput').value,
-        category: document.querySelector('#floatingSelect').value,
-        description: document.querySelector('#floatingTextarea2').value,
-        routePlan: waypointsAll,
-        // coordinates
-        // photos
-      }),
-    });
+    const coordinates = [];
+    document
+      .querySelectorAll('.mapCoordinates')
+      .forEach((el) => coordinates.push(el.value.split(',')));
+    console.log(coordinates);
 
-    const result = await fetchQuery.text();
-    document.querySelector('#nav-create').innerHTML = result;
+    const titleInput = document.querySelector('#floatingInput');
+    const categoryInput = document.querySelector('#floatingSelect');
+    const descriptionInput = document.querySelector('#floatingTextarea2');
+
+    if (
+      !titleInput.value ||
+      !categoryInput.value ||
+      !descriptionInput.value ||
+      !waypointsAll.length
+    ) {
+      document.querySelector('#alertBox').removeAttribute('style');
+      document.querySelector('#alertMessage').innerText =
+        'Заполните обязательные поля!';
+    } else {
+      const fetchQuery = await fetch('/profile/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: titleInput.value,
+          category: categoryInput.value,
+          description: descriptionInput.value,
+          routePlan: waypointsAll,
+          coordinates: coordinates,
+          // photos
+        }),
+      });
+
+      const result = await fetchQuery.text();
+      document.querySelector('#nav-create').innerHTML = result;
+    }
   }
 });
 
@@ -280,9 +339,9 @@ let scrollCounter = 0;
 window.addEventListener('scroll', async () => {
   scrollCounter += 1;
   if (
-    document.querySelector('#carouselExampleSlidesOnly')
-    && !document.querySelector('#main')
-    && scrollCounter <= 1
+    document.querySelector('#carouselExampleSlidesOnly') &&
+    !document.querySelector('#main') &&
+    scrollCounter <= 1
   ) {
     const fetchQuery = await fetch('/main', {
       headers: { 'Content-Type': 'application/json' },

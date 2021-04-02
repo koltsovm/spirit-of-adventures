@@ -1,0 +1,19 @@
+<div class="container category">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {{#each adventures}}
+      <div class="col">
+        <div class="card h-100">
+          <a href="category/{{this.id}}" class="link-block"></a>
+          {{!-- <img src="..." class="card-img-top" alt="..."> --}}
+          <div class="card-body">
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.description}}</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">{{this.creator}}</small>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>

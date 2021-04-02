@@ -20,6 +20,16 @@ router.get('/main', async (req, res) => {
   res.render('cards/main', { layout: false, categories });
 });
 
+router.get('category/:id', async (req, res) => {
+  console.log('HERE1');
+  const adventures = await Adventure.findById(req.params.id);
+  adventures.forEach(async (el) => {
+    const user = await User.findById(el.creator);
+    el.creator = user.username;
+  });
+  res.render('cards/cardsmain', { adventures });
+});
+
 router.post('/login', async (req, res) => {
   try {
     const user = await User.findOne({

@@ -1,5 +1,9 @@
+<script defer src="/js/client.js"></script>
 <div class="trip-creation-form">
   <form action="" method="POST">
+    <div class="form-floating col-sm-10 form-area" id="alertBox" style="display: none;">
+      <div class="alert alert-danger" id="alertMessage" role="alert"></div>
+    </div>
     <div class="form-floating col-sm-10 form-area">
       <div class="form-floating mb-3">
         <input type="text" class="form-control" id="floatingInput" placeholder='Например, "Городец за один день"' required>
@@ -9,7 +13,7 @@
     <div class="form-floating col-sm-10 form-area">
       <div class="form-floating mb-3">
         <select class="form-select" id="floatingSelect" aria-label="Floating label select example" required>
-          <option selected>Выбрать...</option>
+          <option selected></option>
           {{#each categories}}
           <option value="{{this.categoryName}}">{{this.categoryName}}</option>
           {{/each}}
@@ -34,12 +38,6 @@
             <input type="text" data-id="waypointDescription" class="form-control waypointDescription" placeholder='Например, "Городец за один день"' required>
             <label>Описание <sup style="color: red;">*</sup></label>
           </div>
-          <div class="row mb-3">
-            <div class="col">
-              <p class="col-sm-5 col-form-label">Карта</p>
-              <button type="button" data-id="addMap" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Открыть карту</button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -48,7 +46,16 @@
         <button type="button" data-id="addWaypoint" class="btn btn-outline-primary">Добавить точку</button>
       </div>
     </div>
-
+    <div class="row mb-3">
+      <div class="col">
+        <p class="col-sm-5 col-form-label">Отметить точки на карте</p>
+        <button type="button" data-id="addMap" class="btn btn-outline-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Открыть карту</button>
+      </div>
+      {{!-- HIDDEN INPUTS FOR CARD PARAMS --}}
+      <div id="mapDataHidden">
+        {{!-- <input type="text" name="map" style="display: none" class="mapCoordinates" value=""> --}}
+      </div>
+    </div>
     <div class="row mb-3">
       <div class="form-floating col-sm-10">
         <button type="submit" data-id="createAdventure" class="btn btn-primary">Создать приключение</button>
@@ -63,6 +70,8 @@
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
+    {{!-- HIDDEN INPUTS FOR CARD PARAMS --}}
+    {{!-- <input type="text" name="map" style="display: none" id="mapCoordinates" value="123"> --}}
     {{!-- Модуль карты --}}
     <div class="map form-map"></div>
   </div>

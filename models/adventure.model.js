@@ -6,7 +6,7 @@ const Adventure = new mongoose.Schema({
   category: String,
   description: String,
   routePlan: [],
-  coordinates: String,
+  coordinates: [],
   photos: String,
 });
 

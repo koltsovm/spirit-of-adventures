@@ -1,7 +1,7 @@
 <div class="container cards-container">
   <div class="row row-cols-1 row-cols-md-3 g-4">
     {{#each adventures}}
-      <div class="col">
+      <div class="col col-private">
         <div class="card h-100">
           {{!-- <img src="..." class="card-img-top" alt="..."> --}}
           <div class="card-body">
@@ -14,7 +14,6 @@
           <div class="card-footer">
             <small class="text-muted">Категория: {{this.category}}</small>
             <div class="delete-btn">
-              {{!-- <a href="#" class="link-block" data-id="delete-btn"></a> --}}
               <a href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" data-id="delete-btn" data-entryid="{{this.id}}" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                   <path data-id="delete-btn" data-entryid="{{this.id}}" d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>

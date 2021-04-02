@@ -12,6 +12,7 @@ const mongoUrl = process.env.DATABASE_STRING;
 const indexRouter = require('./routes/index');
 const registrationRouter = require('./routes/registration');
 const profileRouter = require('./routes/profile');
+const categoryRouter = require('./routes/category');
 
 const app = express();
 
@@ -44,6 +45,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/registration', registrationRouter);
 app.use('/profile', profileRouter);
+app.use('/category', categoryRouter);
 
 // Catch errors if all of routers above has no responses
 app.use((req, res, next) => {
