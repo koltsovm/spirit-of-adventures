@@ -10,6 +10,11 @@ router.get('/', (req, res) => {
   res.render('index', { user });
 });
 
+// Поиск по сайту
+// router.get('/find', await (req, res) => {
+//   const 
+// });
+
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
@@ -40,7 +45,13 @@ router.post('/login', async (req, res) => {
   return res.send({ status: 'ok' });
 });
 
+// Страничка about
+router.get('/about', (req, res) => {
+  res.render('about');
+});
+
 // Удаление записи. Почему-то не работает в роутере /profile
+// Потому что надо проверять адреса в роутерах!
 router.delete('/delete/:id', async (req, res) => {
   try {
     const thisAdventure = await Adventure.findOne({ _id: req.params.id });

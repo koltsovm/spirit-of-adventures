@@ -29,6 +29,13 @@ $(window).scroll(() => {
   scrollPrev = scrolled;
 });
 
+// AJAX-поиск
+document.querySelector('#search').addEventListener('keyup', async (event) => {
+  const queryText = event.target.value;
+  console.log(queryText);
+  
+});
+
 // Функция рендериинга карты
 function renderMap() {
   document.querySelector('.form-map').innerHTML = '';

@@ -4,6 +4,7 @@ const session = require('express-session');
 const createError = require('http-errors');
 const path = require('path');
 const MongoStore = require('connect-mongo');
+const hbs = require('hbs');
 const dbConnect = require('./db/db');
 
 const mongoUrl = process.env.DATABASE_STRING;
@@ -17,8 +18,9 @@ const categoryRouter = require('./routes/category');
 const app = express();
 
 dbConnect();
-app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+hbs.registerPartials(path.join(__dirname, '/views/partials'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
