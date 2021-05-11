@@ -5,9 +5,9 @@ const Adventure = new mongoose.Schema({
   creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   category: String,
   description: String,
-  routePlan: [],
+  routePlan: [], // TODO указать тип элемента
   coordinates: [],
   photos: String,
 });
 
-module.exports = mongoose.model('adventure', Adventure);
+module.exports = mongoose.model('Adventure', Adventure);

@@ -8,11 +8,11 @@ router.get('/form', (req, res) => {
 });
 
 router.post('/form', async (req, res) => {
-  const existingUser = await User.find({ email: req.body.email });
+  const existingUser = await User.findOne({ email: req.body.email });
 
-  if (!existingUser.length) {
+  if (!existingUser) {
     try {
-      const user = await User.create({
+      const user = await User.create({ // {... req.body}
         name: req.body.name,
         lastName: req.body.lastName,
         username: req.body.username,

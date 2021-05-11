@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Category = new mongoose.Schema({
-  categoryName: String,
+  categoryName: String, // TODO убрать название из поля
   categoryImage: String,
 });
 

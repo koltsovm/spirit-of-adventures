@@ -4,6 +4,7 @@ const nicknameField = document.querySelector('#inputTitle3');
 const emailField = document.querySelector('#inputTitle4');
 const passwordField = document.querySelector('#inputTitle5');
 const passwordRepeat = document.querySelector('#inputTitle6');
+const searchResultsBox = document.querySelector('#search-box-result');
 
 window.onload = () => {
   if (document.querySelector('.carousel-wrapper')) {
@@ -33,7 +34,15 @@ $(window).scroll(() => {
 document.querySelector('#search').addEventListener('keyup', async (event) => {
   const queryText = event.target.value;
   console.log(queryText);
-  
+
+  const response = await fetch('/find', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: event.target.value }),
+  });
+
+  const result = await response.json();
+  searchResultsBox.innerText += result.text;
 });
 
 // Функция рендериинга карты
@@ -45,9 +54,18 @@ function renderMap() {
       {
         center: [55.76, 37.64],
         zoom: 12,
-        controls: ['typeSelector', 'fullscreenControl', 'zoomControl', 'searchControl'],
+        controls: [
+          'typeSelector',
+          'fullscreenControl',
+          'zoomControl',
+          'searchControl',
+        ],
       },
-      { buttonMaxWidth: 300, balloonMaxWidth: 200, searchControlProvider: 'yandex#search' }
+      {
+        buttonMaxWidth: 300,
+        balloonMaxWidth: 200,
+        searchControlProvider: 'yandex#search',
+      }
     );
 
     // eslint-disable-next-line prefer-destructuring
@@ -82,8 +100,8 @@ function renderMap() {
             },
             {
               draggable: true,
-            },
-          ),
+            }
+          )
         );
         // editor.startEditing();
         // myMap.balloon.open(coords, {
@@ -113,7 +131,9 @@ if (document.querySelector('.adventure-card-map')) {
   }
 
   const routePlanItemsTitles = document.querySelectorAll('.routePlanItemTitle');
-  const routePlanItemsDescriptions = document.querySelectorAll('.routePlanItemDescription');
+  const routePlanItemsDescriptions = document.querySelectorAll(
+    '.routePlanItemDescription'
+  );
 
   ymaps.ready(() => {
     const myMap = new ymaps.Map(
@@ -123,7 +143,7 @@ if (document.querySelector('.adventure-card-map')) {
         zoom: 10,
         controls: ['typeSelector', 'fullscreenControl', 'zoomControl'],
       },
-      { buttonMaxWidth: 300, balloonMaxWidth: 200 },
+      { buttonMaxWidth: 300, balloonMaxWidth: 200 }
     );
 
     for (let i = 0; i < coordinatesFormatted.length; i += 1) {
@@ -135,8 +155,8 @@ if (document.querySelector('.adventure-card-map')) {
           },
           {
             draggable: false,
-          },
-        ),
+          }
+        )
       );
     }
   });
