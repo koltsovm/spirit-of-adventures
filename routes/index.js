@@ -12,8 +12,11 @@ router.get('/', (req, res) => {
 
 // Поиск по сайту
 router.post('/find', async (req, res) => {
-  const result = await Adventure.find({ title: /$req.body.title/i });
-  console.log(result);
+  console.log(req.body.title);
+  // const result = await Adventure.find({
+  //   title: new RegExp('/' + req.body.title + '/i'),
+  // });
+  // console.log(result);
 });
 
 router.get('/logout', (req, res) => {

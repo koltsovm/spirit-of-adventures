@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const User = new mongoose.Schema({
+const User = new Schema({
   name: String,
   lastName: String,
   username: String,
@@ -8,6 +8,10 @@ const User = new mongoose.Schema({
   city: String,
   avatar: String,
   password: String,
+  verified: Boolean,
+  plannedTrips: [{ type: Schema.Types.ObjectId, ref: 'Adventure' }],
+  takenTrips: [{ type: Schema.Types.ObjectId, ref: 'Adventure' }],
+  createdTrips: [{ type: Schema.Types.ObjectId, ref: 'Adventure' }],
 });
 
-module.exports = mongoose.model('User', User);
+module.exports = model('User', User);
