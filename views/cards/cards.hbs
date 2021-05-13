@@ -1,7 +1,7 @@
 <div class="container cards-container">
   <div class="row row-cols-1 row-cols-md-3 g-4">
     {{#each adventures}}
-      <div class="col col-private">
+      <div class="col">
         <div class="card h-100">
           {{!-- <img src="..." class="card-img-top" alt="..."> --}}
           {{#if this.photos}}
@@ -13,11 +13,10 @@
           <div class="card-body">
             <a href="category/card/{{this.id}}" class="link-block" data-id="{{this.id}}">
             </a>
-              <h5 class="card-title">{{this.title}}</h5>
-              <p class="card-text">{{this.description}}</p>
+            <h5 class="card-title">{{this.title}}</h5>
+            <p class="card-text">{{this.description}}</p>
           </div>
-        </div>
-          <div class="card-footer" style="border-radius: 10px;">
+          <div class="card-footer">
             <small class="text-muted">Категория: {{this.category}}</small>
             <div class="delete-btn">
               <a href="#">
@@ -28,6 +27,7 @@
               </a>
             </div>
           </div>
+        </div>
       </div>
     {{/each}}
   </div>

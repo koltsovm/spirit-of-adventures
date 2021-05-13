@@ -371,6 +371,61 @@ document.addEventListener('click', async (event) => {
       document.querySelector('#nav-create').innerHTML = result;
     }
   }
+
+  // Отправка формы, редактирование приключения
+  if (event.target.dataset.id === 'editAdventure') {
+    event.preventDefault();
+
+    // Заголовки путевых точек
+    const waypointTitles = document.querySelectorAll('.waypointTitle');
+    const waypointTitlesValues = [];
+    waypointTitles.forEach((el) => waypointTitlesValues.push(el.value));
+    // Описания путевых точек
+    const waypointDescriptions = document.querySelectorAll(
+      '.waypointDescription'
+    );
+    const waypointDescriptionsValues = [];
+    waypointDescriptions.forEach((el) =>
+      waypointDescriptionsValues.push(el.value)
+    );
+    // Собираем путевые точки с заголовками в один массив
+    const waypointsAll = [];
+    for (let i = 0; i < waypointTitlesValues.length; i += 1) {
+      waypointsAll.push([
+        waypointTitlesValues[i],
+        waypointDescriptionsValues[i],
+      ]);
+    }
+
+    const titleInput = document.querySelector('#floatingInput');
+    const categoryInput = document.querySelector('#floatingSelect');
+    const descriptionInput = document.querySelector('#floatingTextarea2');
+
+    if (
+      !titleInput.value ||
+      !categoryInput.value ||
+      !descriptionInput.value ||
+      !waypointsAll.length
+    ) {
+      document.querySelector('#alertBox').removeAttribute('style');
+      document.querySelector('#alertMessage').innerText =
+        'Заполните обязательные поля!';
+    } else {
+      const fetchQuery = await fetch(`/category/owner/${event.target.dataset.adventure}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: titleInput.value,
+          category: categoryInput.value,
+          description: descriptionInput.value,
+          routePlan: waypointsAll,
+        }),
+      });
+
+      const result = await fetchQuery.text();
+      document.querySelector('.body-wrapper').innerHTML = result;
+    }
+  }
 });
 
 // AJAX-подгрузка главной страницы
