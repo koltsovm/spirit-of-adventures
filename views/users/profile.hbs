@@ -1,3 +1,5 @@
+<script defer src="/js/profile.client.js"></script>
+
 <main class="profile-main">
   <nav class="profile-nav">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -11,15 +13,58 @@
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
       <div class="container profile-container">
-        <p class="dev-label">СКОРО!</p>
-        <img src="" alt="" class="img-thumbnail">
+        {{!-- <p class="dev-label">СКОРО!</p> --}}
+        {{!-- <img src="" alt="" class="img-thumbnail"> --}}
         {{#each user}}
+        <div class="avatar-container">
+          {{#if this.avatar}}
+          <img id="userAvatar" src="/img/avatar/{{this.avatar}}" alt="avatar" class="img-thumbnail avatar">
+          <div class="middle">
+            <button id="avatar-edit-button" class="text btn btn-primary">Сменить аватар</button>
+          </div>
+          {{else}}
+          <img id="userAvatar" src="/img/avatar/default.png" alt="avatar" class="img-thumbnail avatar">
+          <div class="middle">
+            <button id="avatar-edit-button" class="text btn btn-primary">Сменить аватар</button>
+          </div>
+          {{/if}}
+        </div>
         <p class="h2">{{this.name}} {{this.lastName}}</p>
         <p class="lead"> {{this.username}}</p>
         <p>E-mail: {{this.email}}</p>
+        {{#if this.city}}
         <p>Город: {{this.city}}</p>
+        {{else}}
+        <p>Город: не указан</p>
+        {{/if}}
         {{/each}}
       </div>
+    {{!-- Modal window for avatar editing --}}
+    <div class="modal fade" id="avatarModal" tabindex="-1" aria-labelledby="avatarModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="avatarModalLabel">Загрузите новый аватар</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="" method="post">
+            <div class="modal-body">
+                <div class="mb-3">
+                  <input class="form-control" type="file" id="avatarFile" name="avatarFile" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+              <button id="avatar-upload" type="button" data-id="avatar-upload" class="btn btn-primary">Загрузить</button>
+              <button id="btn-hidden" class="btn btn-primary" type="button" hidden disabled>
+                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     </div>
     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
       <div class="container profile-container success">

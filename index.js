@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
+const morgan = require('morgan');
 const createError = require('http-errors');
 const path = require('path');
 const MongoStore = require('connect-mongo');
@@ -25,6 +26,7 @@ hbs.registerPartials(path.join(__dirname, '/views/partials'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(morgan('dev'));
 
 // Connect session
 app.use(

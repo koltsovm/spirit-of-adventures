@@ -1,13 +1,14 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const Adventure = new mongoose.Schema({
+const Adventure = new Schema({
   title: String,
-  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  creator: { type: Schema.Types.ObjectId, ref: 'User' },
   category: String,
   description: String,
-  routePlan: [], // TODO указать тип элемента
-  coordinates: [],
+  routePlan: [String], // TODO указать тип элемента
+  coordinates: [String],
   photos: String,
+  participants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 });
 
-module.exports = mongoose.model('Adventure', Adventure);
+module.exports = model('Adventure', Adventure);

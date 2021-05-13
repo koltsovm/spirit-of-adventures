@@ -1,13 +1,29 @@
 const express = require('express');
 
 const router = express.Router();
+const multer = require('multer');
+const jimp = require('jimp');
 const User = require('../models/user.model');
 const Category = require('../models/category.model');
 const Adventure = require('../models/adventure.model');
 
+const uploadImage = multer({ dest: './public/img/avatar' });
+
 router.get('/create', async (req, res) => {
-  const categories = await Category.find();
-  res.render('users/create', { layout: false, categories });
+  try {
+    const user = await User.findOne({ username: req.session.username });
+
+    if (user.verified === true) {
+      const categories = await Category.find();
+      return res.render('users/create', { layout: false, categories });
+    }
+
+    if (user.verified === false) {
+      return res.render('registration/unverified');
+    }
+  } catch (error) {
+    return res.render('error');
+  }
 });
 
 router.get('/created', async (req, res) => {
@@ -57,6 +73,7 @@ router.get('/:username', async (req, res) => {
     let user;
     try {
       user = await User.find({ _id: req.session.userId });
+      console.log(user);
     } catch (error) {
       return res.render('error');
     }
@@ -64,6 +81,26 @@ router.get('/:username', async (req, res) => {
   }
 
   return res.render('error');
+});
+
+// Avatar upload
+router.post('/', uploadImage.single('avatarFile'), async (req, res) => {
+  if (req.file) {
+    jimp.read(`${req.file.destination}/${req.file.filename}`).then((image) => {
+      image
+        .resize(100, 100)
+        .quality(70)
+        .write(`./public/img/previews/${req.file.filename}`);
+    });
+
+    await User.findOneAndUpdate(
+      { username: req.session.username },
+      { avatar: req.file.filename },
+    );
+
+    return res.json({ image: `${req.file.filename}` });
+  }
+  return res.json({ image: `${req.file.filename}` });
 });
 
 module.exports = router;

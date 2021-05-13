@@ -33,7 +33,7 @@ router
           to: email,
           subject: 'Подтверждение электронной почты',
           text: 'Подтвердите электронную почту',
-          html: `<h1>Дух приключений</h1><br><p>Добро пожаловать на портал "Дух приключений!"<br> Вы получили это письмо потому что данный почтовый ящик был указан при регистрации на портале.<br>Для подтверждения регистрации нажмите на кнопку ниже. Если это были не вы, просто проигнорируйте это письмо<br><a href="http://localhost:3000/registration/verification/${user.id}">Подтвердить электронную почту</a> С уважением, команда "Духа приключений".</p>`,
+          html: `<div style="text-align: center"><h1>Дух приключений</h1><br><p>Добро пожаловать на портал "Дух приключений!"<br> Вы получили это письмо потому что данный почтовый ящик был указан при регистрации на портале.<br>Для подтверждения регистрации нажмите на кнопку ниже. Если это были не вы, просто проигнорируйте это письмо<br><a href="http://localhost:3000/registration/verification/${user.id}">Подтвердить электронную почту</a><br>С уважением, команда "Духа приключений".</p></div>`,
         });
 
         req.session.username = user.username;
@@ -56,6 +56,21 @@ router
 router.get('/verification/:id', async (req, res) => {
   await User.findByIdAndUpdate(req.params.id, { verified: true });
   res.render('registration/verified');
+});
+
+// Repeated verification
+router.get('/repeat', async (req, res) => {
+  const user = await User.findOne({ username: req.session.username });
+
+  await transporter.sendMail({
+    from: process.env.EMAIL_LOGIN,
+    to: user.email,
+    subject: 'Повторное письмо для подтверждения электронной почты',
+    text: 'Подтвердите электронную почту',
+    html: `<div style="text-align: center"><h1>Дух приключений</h1><br><p>Добро пожаловать на портал "Дух приключений!"<br> Вы получили это письмо потому что данный почтовый ящик был указан при регистрации на портале.<br>Для подтверждения регистрации нажмите на кнопку ниже. Если это были не вы, просто проигнорируйте это письмо<br><a href="http://localhost:3000/registration/verification/${user.id} role="button">Подтвердить электронную почту</a><br>С уважением, команда "Духа приключений".</p></div>`,
+  });
+
+  res.render('registration/emailSent');
 });
 
 module.exports = router;

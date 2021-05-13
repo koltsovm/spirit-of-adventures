@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const Category = new mongoose.Schema({
+const Category = new Schema({
   categoryName: String, // TODO убрать название из поля
   categoryImage: String,
 });
 
-module.exports = mongoose.model('Category', Category);
+module.exports = model('Category', Category);
