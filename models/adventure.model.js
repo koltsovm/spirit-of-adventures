@@ -4,9 +4,10 @@ const Adventure = new Schema({
   title: String,
   creator: { type: Schema.Types.ObjectId, ref: 'User' },
   category: String,
+  tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
   description: String,
-  routePlan: [String], // TODO указать тип элемента
-  coordinates: [String],
+  routePlan: [Array],
+  coordinates: [Array],
   photos: String,
   participants: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 });

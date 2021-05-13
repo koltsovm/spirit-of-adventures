@@ -42,15 +42,17 @@ router.get('/created', async (req, res) => {
   return res.render('error');
 });
 
+// Создание нового приключения
 router.post('/create', async (req, res) => {
+  const { title, category, description, routePlan, coordinates } = req.body;
   try {
     await Adventure.create({
-      title: req.body.title,
+      title,
       creator: req.session.userId,
-      category: req.body.category,
-      description: req.body.description,
-      routePlan: req.body.routePlan,
-      coordinates: req.body.coordinates,
+      category,
+      description,
+      routePlan,
+      coordinates,
       photos: req.body.photos,
     });
   } catch (error) {
@@ -61,19 +63,19 @@ router.post('/create', async (req, res) => {
 
 router.get('/category/card/:id', async (req, res) => {
   if (req.session.username) {
-    const user = req.session.username;
-    const adventure = await Adventure.findById(req.params.id);
+    const adventure = await Adventure.findById(req.params.id).populate('creator');
+
     const routePlanItems = adventure.routePlan;
-    res.render('cards/adventureCard', { adventure, routePlanItems, user });
+    res.render('cards/adventureCard', { adventure, routePlanItems });
   }
 });
 
+// Личный кабинет
 router.get('/:username', async (req, res) => {
   if (req.session.username) {
     let user;
     try {
       user = await User.find({ _id: req.session.userId });
-      console.log(user);
     } catch (error) {
       return res.render('error');
     }
@@ -95,7 +97,7 @@ router.post('/', uploadImage.single('avatarFile'), async (req, res) => {
 
     await User.findOneAndUpdate(
       { username: req.session.username },
-      { avatar: req.file.filename },
+      { avatar: req.file.filename }
     );
 
     return res.json({ image: `${req.file.filename}` });

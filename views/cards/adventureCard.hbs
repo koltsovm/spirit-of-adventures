@@ -13,13 +13,17 @@
       <p class="routePlanItemDescription">{{this.[1]}}</p>
     {{/each}}
     <br>
-    <div class="row mb-3">
-      <div class="form-floating col-sm-9 ">
-        <button type="button" data-id="editAdventure" class="btn btn-outline-primary">Редактировать маршрут </button>
-        <sup style="color: red;">СКОРО!</sup>
+    {{#if owner}}
+      <div class="row mb-3">
+        <div class="form-floating col-sm-9 ">
+          <button type="button" data-id="editAdventure" class="btn btn-outline-primary">Редактировать маршрут </button>
+          <sup style="color: red;">СКОРО!</sup>
+        </div>
       </div>
-    </div>
+    {{/if}}
   </div>
   {{!-- Карта в отображении путешествия --}}
+  {{#if adventure.coordinates}}
   <div class="map form-map adventure-card-map"></div>
+  {{/if}}
 </div>

@@ -28,6 +28,9 @@ router
           verified: false,
         });
 
+        req.session.username = user.username;
+        req.session.userId = user.id;
+
         await transporter.sendMail({
           from: process.env.EMAIL_LOGIN,
           to: email,
@@ -35,9 +38,6 @@ router
           text: 'Подтвердите электронную почту',
           html: `<div style="text-align: center"><h1>Дух приключений</h1><br><p>Добро пожаловать на портал "Дух приключений!"<br> Вы получили это письмо потому что данный почтовый ящик был указан при регистрации на портале.<br>Для подтверждения регистрации нажмите на кнопку ниже. Если это были не вы, просто проигнорируйте это письмо<br><a href="http://localhost:3000/registration/verification/${user.id}">Подтвердить электронную почту</a><br>С уважением, команда "Духа приключений".</p></div>`,
         });
-
-        req.session.username = user.username;
-        req.session.userId = user.id;
 
         return res.render('index', { layout: false, user });
       } catch (error) {
@@ -67,7 +67,7 @@ router.get('/repeat', async (req, res) => {
     to: user.email,
     subject: 'Повторное письмо для подтверждения электронной почты',
     text: 'Подтвердите электронную почту',
-    html: `<div style="text-align: center"><h1>Дух приключений</h1><br><p>Добро пожаловать на портал "Дух приключений!"<br> Вы получили это письмо потому что данный почтовый ящик был указан при регистрации на портале.<br>Для подтверждения регистрации нажмите на кнопку ниже. Если это были не вы, просто проигнорируйте это письмо<br><a href="http://localhost:3000/registration/verification/${user.id} role="button">Подтвердить электронную почту</a><br>С уважением, команда "Духа приключений".</p></div>`,
+    html: `<div style="text-align: center"><h1>Дух приключений</h1><br><p>Добро пожаловать на портал "Дух приключений!"<br> Вы получили это письмо потому что данный почтовый ящик был указан при регистрации на портале.<br>Для подтверждения регистрации нажмите на кнопку ниже. Если это были не вы, просто проигнорируйте это письмо<br><div style="padding: 5px, border: 1px solid blue, border-radius: 10px, text-decoration: none, color: blue"><a href="http://localhost:3000/registration/verification/${user.id}">Подтвердить электронную почту</a></div><br>С уважением, команда "Духа приключений".</p></div>`,
   });
 
   res.render('registration/emailSent');

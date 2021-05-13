@@ -13,7 +13,7 @@
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
       <div class="container profile-container">
-        {{!-- <p class="dev-label">СКОРО!</p> --}}
+        <p class="dev-label">NEW!</p>
         {{!-- <img src="" alt="" class="img-thumbnail"> --}}
         {{#each user}}
         <div class="avatar-container">
@@ -31,7 +31,11 @@
         </div>
         <p class="h2">{{this.name}} {{this.lastName}}</p>
         <p class="lead"> {{this.username}}</p>
+        {{#if this.verified}}
         <p>E-mail: {{this.email}}</p>
+        {{else}}
+        <p>E-mail: {{this.email}} <b style="color: red;">Не подтвержден</b></p>
+        {{/if}}
         {{#if this.city}}
         <p>Город: {{this.city}}</p>
         {{else}}
@@ -67,26 +71,36 @@
     </div>
     </div>
     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+      {{#each user}}
+      {{#if this.verified}}
       <div class="container profile-container success">
         <div class="created">
           <h1>Раздел находится в разработке</h1>
           <p class="lead">Гномы-строители еще не завершили эту локацию, но вы всегда можете зайти попозже :)</p>
         </div>
       </div>
+      {{else}}
+      {{> unverified}}
+      {{/if}}
     </div>
     <div class="tab-pane fade" id="nav-plans" role="tabpanel" aria-labelledby="nav-plans-tab">
+      {{#if this.verified}}
       <div class="container profile-container success">
         <div class="created">
           <h1>Раздел находится в разработке</h1>
           <p class="lead">Гномы-строители еще не завершили эту локацию, но вы всегда можете зайти попозже :)</p>
         </div>
       </div>
+      {{else}}
+      {{> unverified}}
+      {{/if}}
+      {{/each}}
     </div>
     <div class="tab-pane fade" id="nav-create" role="tabpanel" aria-labelledby="nav-create-tab">
       Создать приключение
     </div>
     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
       Созданные приключения
-    </div>
+
   </div>
 </main>

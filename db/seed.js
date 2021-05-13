@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const User = require('../models/user.model');
 const Adventure = require('../models/adventure.model');
 const Category = require('../models/category.model');
+const Tag = require('../models/tag.model');
+
 const dbConnect = require('./db');
 
 dbConnect();
@@ -58,39 +60,49 @@ const adventureSeed = async () => {
 
 const categorySeed = async () => {
   await Category.create({
-    categoryName: 'Природа',
-    categoryImage: 'Природа.png',
+    title: 'Природа',
+    image: 'Природа.png',
   });
 
   await Category.create({
-    categoryName: 'Город',
-    categoryImage: 'Город.png',
+    title: 'Город',
+    image: 'Город.png',
   });
 
   await Category.create({
-    categoryName: 'Архитектура',
-    categoryImage: 'Архитектура.png',
+    title: 'Архитектура',
+    image: 'Архитектура.png',
   });
 
   await Category.create({
-    categoryName: 'Активный отдых',
-    categoryImage: 'Активный отдых.png',
+    title: 'Активный отдых',
+    image: 'Активный отдых.png',
   });
 
   await Category.create({
-    categoryName: 'Пешком',
-    categoryImage: 'Пешком.png',
+    title: 'Пешком',
+    image: 'Пешком.png',
   });
 
   await Category.create({
-    categoryName: 'На машине',
-    categoryImage: 'На машине.png',
+    title: 'На машине',
+    image: 'На машине.png',
   });
 
   await Category.create({
-    categoryName: 'На велосипеде',
-    categoryImage: 'На велосипеде.png',
+    title: 'На велосипеде',
+    image: 'На велосипеде.png',
   });
+};
+
+const tagSeed = async () => {
+  await Tag.create({ title: 'Пешком' });
+  await Tag.create({ title: 'На машине' });
+  await Tag.create({ title: 'На велосипеде' });
+  await Tag.create({ title: 'Активный отдых' });
+  await Tag.create({ title: 'Архитектура' });
+  await Tag.create({ title: 'Город' });
+  await Tag.create({ title: 'Природа' });
 };
 
 const seed = async () => {

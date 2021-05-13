@@ -32,3 +32,23 @@
     {{/each}}
   </div>
 </div>
+
+{{!-- Delete edventure modal --}}
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Вы уверены, что хотите удалить это приключение?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button id="adventure-delete" type="button" data-id="adventure-delete" class="btn btn-primary">Удалить</button>
+          <button id="delete-btn-hidden" class="btn btn-primary" type="button" hidden disabled>
+            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            Loading...
+          </button>
+        </div>
+    </div>
+  </div>
+</div>
