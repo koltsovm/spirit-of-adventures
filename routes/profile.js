@@ -157,6 +157,10 @@ router.get('/myadventures', async (req, res) => {
   //   user.takenAdventures.map((el) => Adventure.findById(el))
   // );
 
+  if (user.verified === false) {
+    return res.render('registration/unverified');
+  }
+
   if (user.takenTrips.length) {
     // eslint-disable-next-line no-restricted-syntax
     for (const elem of user.takenTrips) {
@@ -179,6 +183,10 @@ router.get('/myadventures/planned', async (req, res) => {
   // const adventures1 = await Promise.all(
   //   user.takenAdventures.map((el) => Adventure.findById(el))
   // );
+
+  if (user.verified === false) {
+    return res.render('registration/unverified');
+  }
 
   if (user.plannedTrips.length) {
     // eslint-disable-next-line no-restricted-syntax

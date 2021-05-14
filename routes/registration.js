@@ -36,7 +36,32 @@ router
           to: email,
           subject: 'Подтверждение электронной почты',
           text: 'Подтвердите электронную почту',
-          html: `<div style="text-align: center"><h1>Дух приключений</h1><br><p>Добро пожаловать на портал "Дух приключений!"<br> Вы получили это письмо потому что данный почтовый ящик был указан при регистрации на портале.<br>Для подтверждения регистрации нажмите на кнопку ниже. Если это были не вы, просто проигнорируйте это письмо<br><a href="http://localhost:3000/registration/verification/${user.id}">Подтвердить электронную почту</a><br>С уважением, команда "Духа приключений".</p></div>`,
+          html: `<table style="border: hidden;">
+                  <tr style="background-color: blue;">
+                    <td style="text-align: center; color: white"><h1>Дух приключений</h1><br></td>
+                  </tr>
+                  <tr>
+                    <td style="text-align: center;">
+                      <p>Добро пожаловать на портал "Дух приключений!"</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <p>
+                        Вы получили это письмо потому что данный почтовый ящик был указан при регистрации на портале.<br>
+                        Для подтверждения регистрации нажмите на кнопку ниже. Если это были не вы, просто проигнорируйте это письмо<br>
+                      </p>
+                    </td>
+                    </tr>
+                  <tr>
+                    <td style="text-align: center;">
+                      <b><a href="http://localhost:3000/registration/verification/${user.id}"><h2>Подтвердить электронную почту</h2></a></b>
+                    </td>
+                  </tr>
+                  <tr style="background-color: blue;">
+                    <td style="text-align: center; color: white"><p>С уважением, команда "Духа приключений".</p></td>
+                  </tr>
+                </table>`,
         });
 
         return res.render('index', { layout: false, user });
@@ -67,7 +92,32 @@ router.get('/repeat', async (req, res) => {
     to: user.email,
     subject: 'Повторное письмо для подтверждения электронной почты',
     text: 'Подтвердите электронную почту',
-    html: `<div style="text-align: center"><h1>Дух приключений</h1><br><p>Добро пожаловать на портал "Дух приключений!"<br> Вы получили это письмо потому что данный почтовый ящик был указан при регистрации на портале.<br>Для подтверждения регистрации нажмите на кнопку ниже. Если это были не вы, просто проигнорируйте это письмо<br><div style="padding: 5px, border: 1px solid blue, border-radius: 10px, text-decoration: none, color: blue"><a href="http://localhost:3000/registration/verification/${user.id}">Подтвердить электронную почту</a></div><br>С уважением, команда "Духа приключений".</p></div>`,
+    html: `<table style="border: hidden;">
+            <tr style="background-color: blue;">
+              <td style="text-align: center; color: white"><h1>Дух приключений</h1><br></td>
+            </tr>
+            <tr>
+              <td style="text-align: center;">
+                <p>Добро пожаловать на портал "Дух приключений!"</p>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p>
+                  Вы получили это письмо потому что данный почтовый ящик был указан при регистрации на портале.<br>
+                  Для подтверждения регистрации нажмите на кнопку ниже. Если это были не вы, просто проигнорируйте это письмо<br>
+                </p>
+              </td>
+              </tr>
+            <tr>
+              <td style="text-align: center;">
+                <b><a href="http://localhost:3000/registration/verification/${user.id}"><h2>Подтвердить электронную почту</h2></a></b>
+              </td>
+            </tr>
+            <tr style="background-color: blue;">
+              <td style="text-align: center; color: white"><p>С уважением, команда "Духа приключений".</p></td>
+            </tr>
+          </table>`,
   });
 
   res.render('registration/emailSent');
