@@ -4,6 +4,28 @@
   <div class="adventure-card-value">
     <input type="text" id="coordinatesStorage" hidden value="{{adventure.coordinates}}">
     <h1 class="display-3">{{adventure.title}}</h1>
+    {{#if username}}
+    <div id="adventure-controls" class="mb-3">
+      {{#if taken}}
+      <button id="plan-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-secondary" hidden>Запланировать приключение <sup style="color: red;">NEW!</sup></button>
+      <button id="unplan-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-secondary" hidden>Убрать из планов</button>
+      <button id="start-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-danger" hidden>Начать приключение! <sup style="color: red;">NEW!</sup></button>
+      <button id="stop-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-danger">Завершить приключение</button>
+      {{/if}}
+      {{#if planned}}
+      <button id="plan-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-secondary" hidden>Запланировать приключение <sup style="color: red;">NEW!</sup></button>
+      <button id="unplan-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-secondary">Убрать из планов</button>
+      <button id="start-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-danger">Начать приключение! <sup style="color: red;">NEW!</sup></button>
+      <button id="stop-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-danger" hidden>Завершить приключение</button>
+      {{/if}}
+      {{#if unknown}}
+      <button id="plan-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-secondary">Запланировать приключение <sup style="color: red;">NEW!</sup></button>
+      <button id="unplan-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-secondary" hidden>Убрать из планов</button>
+      <button id="start-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-danger">Начать приключение! <sup style="color: red;">NEW!</sup></button>
+      <button id="stop-button" data-id="{{adventure.id}}" type="button" class="btn btn-outline-danger" hidden>Завершить приключение</button>
+      {{/if}}
+    </div>
+    {{/if}}
     <p class="lead">{{adventure.category}}</p>
     <br>
     <p>{{adventure.description}}</p>
@@ -17,9 +39,8 @@
     <br>
     {{#if owner}}
       <div class="row mb-3">
-        <div class="form-floating col-sm-9 ">
-          <a type="button" href="/category/owner/{{adventure.id}}" data-adventure="{{adventure.id}}" class="btn btn-outline-primary" role="button">Редактировать маршрут </a>
-          <sup style="color: red;">NEW!</sup>
+        <div class="form-floating col-sm-9">
+          <a type="button" href="/category/owner/{{adventure.id}}" data-adventure="{{adventure.id}}" class="btn btn-outline-primary" role="button">Редактировать маршрут <sup style="color: red;">NEW!</sup></a>
         </div>
       </div>
     {{/if}}

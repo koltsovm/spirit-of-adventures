@@ -8,6 +8,21 @@ const Adventure = require('../models/adventure.model');
 // Страница путешествия
 router.get('/card/:id', async (req, res) => {
   let owner = false;
+  let taken = false;
+  let planned = false;
+  let unknown = true;
+
+  const user = await User.findOne({ username: req.session.username });
+
+  if (user.takenTrips.includes(req.params.id)) {
+    taken = true;
+    unknown = false;
+  }
+
+  if (user.plannedTrips.includes(req.params.id)) {
+    planned = true;
+    unknown = false;
+  }
 
   const adventure = await Adventure.findById(req.params.id).populate('creator');
 
@@ -16,13 +31,42 @@ router.get('/card/:id', async (req, res) => {
   }
 
   const routePlanItems = adventure.routePlan;
-  res.render('cards/adventureCard', { adventure, routePlanItems, owner });
+  res.render('cards/adventureCard', {
+    adventure,
+    routePlanItems,
+    owner,
+    taken,
+    planned,
+    unknown,
+  });
 });
 
 router.get('/:title', async (req, res) => {
   const adventures = await Adventure.find({ category: req.params.title });
 
   res.render('cards/cardsmain', { adventures });
+});
+
+// Страница рандомного путешествия
+router.get('/adventure/random', async (req, res) => {
+  let taken = false;
+  let planned = false;
+  let unknown = true;
+
+  const user = await User.findOne({ username: req.session.username });
+
+  if (user.takenTrips.includes(req.params.id)) {
+    taken = true;
+    unknown = false;
+  }
+
+  if (user.plannedTrips.includes(req.params.id)) {
+    planned = true;
+    unknown = false;
+  }
+  const adventures = await Adventure.find();
+  const adventure = adventures[Math.floor(Math.random() * adventures.length)];
+  res.render('cards/adventureCard', { adventure, taken, planned, unknown });
 });
 
 // Страница редактирования
@@ -43,6 +87,21 @@ router
     const { title, category, description, routePlan } = req.body;
     let adventure;
     const owner = true;
+    let taken = false;
+    let planned = false;
+    let unknown = true;
+
+    const user = await User.findOne({ username: req.session.username });
+
+    if (user.takenTrips.includes(req.params.id)) {
+      taken = true;
+      unknown = false;
+    }
+
+    if (user.plannedTrips.includes(req.params.id)) {
+      planned = true;
+      unknown = false;
+    }
 
     try {
       await Adventure.findOneAndUpdate(
@@ -56,11 +115,17 @@ router
       );
 
       adventure = await Adventure.findById(req.params.id);
-      console.log('adventure======>>>>>>', adventure);
     } catch (error) {
       return res.render('error');
     }
-    return res.render('cards/adventureCard', { layout: false, adventure, owner });
+    return res.render('cards/adventureCard', {
+      layout: false,
+      adventure,
+      owner,
+      taken,
+      planned,
+      unknown,
+    });
   });
 
 module.exports = router;

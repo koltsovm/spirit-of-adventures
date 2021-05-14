@@ -95,16 +95,6 @@ function renderMap() {
             }
           )
         );
-        // editor.startEditing();
-        // myMap.balloon.open(coords, {
-        //   contentHeader: 'Событие!',
-        //   contentBody:
-        //     `${'<p>Кто-то щелкнул по карте.</p>'
-        //     + '<p>Координаты щелчка: '}${
-        //       [coords[0].toPrecision(6), coords[1].toPrecision(6)].join(', ')
-        //     }</p>`,
-        //   contentFooter: '<sup>Щелкните еще раз</sup>',
-        // });
       } else {
         myMap.balloon.close();
       }
@@ -113,6 +103,26 @@ function renderMap() {
 }
 
 document.addEventListener('click', async (event) => {
+  // Открыть взятые приключения
+  if (event.target.dataset.id === 'nav-my') {
+    const fetchQuery = await fetch('/profile/myadventures', {
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    const result = await fetchQuery.text();
+    document.getElementById('nav-my').innerHTML = result;
+  }
+
+  // Открыть запланированные приключения
+  if (event.target.dataset.id === 'nav-plans') {
+    const fetchQuery = await fetch('/profile/myadventures/planned', {
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    const result = await fetchQuery.text();
+    document.getElementById('nav-plans').innerHTML = result;
+  }
+
   // Открыть форму создания приключения
   if (
     event.target.dataset.id === 'nav-create' &&
