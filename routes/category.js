@@ -12,32 +12,47 @@ router.get('/card/:id', async (req, res) => {
   let planned = false;
   let unknown = true;
 
-  const user = await User.findOne({ username: req.session.username });
-
-  if (user.takenTrips.includes(req.params.id)) {
-    taken = true;
-    unknown = false;
-  }
-
-  if (user.plannedTrips.includes(req.params.id)) {
-    planned = true;
-    unknown = false;
-  }
-
-  const adventure = await Adventure.findById(req.params.id).populate('creator');
-
-  if (req.session.username === adventure.creator.username) {
-    owner = true;
-  }
+  const adventure = await Adventure.findById(req.params.id).populate(
+    'creator'
+  );
 
   const routePlanItems = adventure.routePlan;
-  res.render('cards/adventureCard', {
+
+  if (req.session.username) {
+    const user = await User.findOne({ username: req.session.username });
+
+    if (user.takenTrips.includes(req.params.id)) {
+      taken = true;
+      unknown = false;
+    }
+
+    if (user.plannedTrips.includes(req.params.id)) {
+      planned = true;
+      unknown = false;
+    }
+
+
+    if (req.session.username === adventure.creator.username) {
+      owner = true;
+    }
+
+    return res.render('cards/adventureCard', {
+      adventure,
+      routePlanItems,
+      owner,
+      taken,
+      planned,
+      unknown,
+    });
+  }
+
+  return res.render('cards/adventureCard', {
     adventure,
     routePlanItems,
     owner,
     taken,
     planned,
-    unknown,
+    unknown: false,
   });
 });
 
