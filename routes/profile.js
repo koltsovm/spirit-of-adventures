@@ -63,10 +63,15 @@ router.post('/create', async (req, res) => {
 
 router.get('/category/card/:id', async (req, res) => {
   if (req.session.username) {
+    let owner = false;
     const adventure = await Adventure.findById(req.params.id).populate('creator');
 
+    if (adventure.creator.username === req.session.username) {
+      owner = true;
+    }
+
     const routePlanItems = adventure.routePlan;
-    res.render('cards/adventureCard', { adventure, routePlanItems });
+    res.render('cards/adventureCard', { adventure, routePlanItems, owner });
   }
 });
 
