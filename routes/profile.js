@@ -9,32 +9,64 @@ const Adventure = require('../models/adventure.model');
 
 const uploadImage = multer({ dest: './public/img/avatar' });
 
-router.get('/create', async (req, res) => {
-  try {
-    const user = await User.findOne({ username: req.session.username });
+// Отрисовка формы создания приключения
+router
+  .route('/create')
+  .get(async (req, res) => {
+    try {
+      const user = await User.findOne({ username: req.session.username });
 
-    if (user.verified === true) {
-      const categories = await Category.find();
-      return res.render('users/create', { layout: false, categories });
+      if (user.verified === true) {
+        const categories = await Category.find();
+        return res.render('users/create', { layout: false, categories });
+      }
+
+      if (user.verified === false) {
+        return res.render('registration/unverified');
+      }
+    } catch (error) {
+      return res.render('error');
     }
-
-    if (user.verified === false) {
-      return res.render('registration/unverified');
+  })
+  // Создание нового приключения
+  .post(async (req, res) => {
+    const { title, category, description, routePlan, coordinates } = req.body;
+    try {
+      await Adventure.create({
+        title,
+        creator: req.session.userId,
+        category,
+        description,
+        routePlan,
+        coordinates,
+        photos: req.body.photos,
+      });
+    } catch (error) {
+      return res.render('error');
     }
-  } catch (error) {
-    return res.render('error');
-  }
-});
+    return res.render('users/routeCreated', { layout: false });
+  });
 
+// Раздел "Созданные путешествия"
 router.get('/created', async (req, res) => {
   if (req.session.username) {
     let adventures;
     try {
-      adventures = await Adventure.find({
-        creator: req.session.userId,
-      });
+      const user = await User.findOne({ username: req.session.username });
+
+      if (user.verified === true) {
+        adventures = await Adventure.find({
+          creator: req.session.userId,
+        });
+
+        return res.render('cards/cards', { layout: false, adventures });
+      }
+
+      if (user.verified === false) {
+        return res.render('registration/unverified');
+      }
     } catch (error) {
-      return res.render('error');
+      return res.render('error', { layout: false });
     }
     return res.render('cards/cards', { layout: false, adventures });
   }
@@ -42,29 +74,13 @@ router.get('/created', async (req, res) => {
   return res.render('error');
 });
 
-// Создание нового приключения
-router.post('/create', async (req, res) => {
-  const { title, category, description, routePlan, coordinates } = req.body;
-  try {
-    await Adventure.create({
-      title,
-      creator: req.session.userId,
-      category,
-      description,
-      routePlan,
-      coordinates,
-      photos: req.body.photos,
-    });
-  } catch (error) {
-    return res.render('error');
-  }
-  return res.render('users/routeCreated', { layout: false });
-});
-
+// Карточка путешествия в разделе "Мои путешествия"
 router.get('/category/card/:id', async (req, res) => {
   if (req.session.username) {
     let owner = false;
-    const adventure = await Adventure.findById(req.params.id).populate('creator');
+    const adventure = await Adventure.findById(req.params.id).populate(
+      'creator'
+    );
 
     if (adventure.creator.username === req.session.username) {
       owner = true;
@@ -73,6 +89,110 @@ router.get('/category/card/:id', async (req, res) => {
     const routePlanItems = adventure.routePlan;
     res.render('cards/adventureCard', { adventure, routePlanItems, owner });
   }
+});
+
+// Планирование приключения
+router.get('/myadventures/plan/:id', async (req, res) => {
+  try {
+    await User.findOneAndUpdate(
+      { username: req.session.username },
+      { $push: { plannedTrips: req.params.id } }
+    );
+
+    return res.json({ status: 'ok' });
+  } catch (error) {
+    return res.json({ status: 'false' });
+  }
+});
+
+// Отмена планирования приключения
+router.get('/myadventures/unplan/:id', async (req, res) => {
+  try {
+    await User.findOneAndUpdate(
+      { username: req.session.username },
+      { $pull: { plannedTrips: req.params.id } }
+    );
+
+    return res.json({ status: 'ok' });
+  } catch (error) {
+    return res.json({ status: 'false' });
+  }
+});
+
+// Старт приключения
+router.get('/myadventures/start/:id', async (req, res) => {
+  try {
+    await User.findOneAndUpdate(
+      { username: req.session.username },
+      { $push: { takenTrips: req.params.id } }
+    );
+
+    await User.findOneAndUpdate(
+      { username: req.session.username },
+      { $pull: { plannedTrips: req.params.id } }
+    );
+
+    return res.json({ status: 'ok' });
+  } catch (error) {
+    return res.json({ status: 'false' });
+  }
+});
+
+// Стоп приключения
+router.get('/myadventures/stop/:id', async (req, res) => {
+  await User.findOneAndUpdate(
+    { username: req.session.username },
+    { $pull: { takenTrips: req.params.id } }
+  );
+
+  res.json({ status: 'ok' });
+});
+
+// Раздел активных приключений
+router.get('/myadventures', async (req, res) => {
+  const user = await User.findOne({ username: req.session.username });
+  const adventures = [];
+
+  // const adventures1 = await Promise.all(
+  //   user.takenAdventures.map((el) => Adventure.findById(el))
+  // );
+
+  if (user.takenTrips.length) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const elem of user.takenTrips) {
+      // eslint-disable-next-line no-await-in-loop
+      const adventure = await Adventure.findById(elem);
+      adventures.push(adventure);
+    }
+  } else {
+    return res.render('users/emptySection', { layout: false });
+  }
+
+  return res.render('cards/cardsmain', { layout: false, adventures });
+});
+
+// Раздел запланированных путешествий
+router.get('/myadventures/planned', async (req, res) => {
+  const user = await User.findOne({ username: req.session.username });
+  const adventures = [];
+
+  // const adventures1 = await Promise.all(
+  //   user.takenAdventures.map((el) => Adventure.findById(el))
+  // );
+
+  if (user.plannedTrips.length) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const elem of user.plannedTrips) {
+      // eslint-disable-next-line no-await-in-loop
+      const adventure = await Adventure.findById(elem);
+      adventures.push(adventure);
+    }
+  } else {
+    const planned = true;
+    return res.render('users/emptySection', { layout: false, planned });
+  }
+
+  return res.render('cards/cardsmain', { layout: false, adventures });
 });
 
 // Личный кабинет
