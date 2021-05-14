@@ -312,6 +312,7 @@ body {
 } */
 
 .link-block {
+  z-index: 2;
   display: block;
   height: 100%;
   width: 100%;
