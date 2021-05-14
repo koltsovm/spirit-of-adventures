@@ -12,9 +12,7 @@ router.get('/card/:id', async (req, res) => {
   let planned = false;
   let unknown = true;
 
-  const adventure = await Adventure.findById(req.params.id).populate(
-    'creator'
-  );
+  const adventure = await Adventure.findById(req.params.id).populate('creator');
 
   const routePlanItems = adventure.routePlan;
 
@@ -30,7 +28,6 @@ router.get('/card/:id', async (req, res) => {
       planned = true;
       unknown = false;
     }
-
 
     if (req.session.username === adventure.creator.username) {
       owner = true;
